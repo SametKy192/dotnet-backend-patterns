@@ -1,0 +1,30 @@
+### List all products
+GET http://localhost:5155/api/products
+Accept: application/json
+
+### Create a product
+POST http://localhost:5155/api/products
+Content-Type: application/json
+
+{
+  "name": "Laptop",
+  "price": 999.99
+}
+
+### Validation test — empty name
+POST http://localhost:5155/api/products
+Content-Type: application/json
+
+{
+  "name": "",
+  "price": 999.99
+}
+
+### Validation test — negative price
+POST http://localhost:5155/api/products
+Content-Type: application/json
+
+{
+  "name": "Laptop",
+  "price": -1
+}
