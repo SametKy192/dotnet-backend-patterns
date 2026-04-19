@@ -1,15 +1,24 @@
+using CqrsMediatr.Application.Common.Behaviors;
 using CqrsMediatr.Application.Products.Commands.CreateProduct;
+using FluentValidation;
+using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Controller'ları servise ekle
 builder.Services.AddControllers();
 
-// MediatR'ı kaydet — Application katmanındaki tüm handler'ları otomatik bulur
-builder.Services.AddMediatR(cfg => 
+// MediatR — Application katmanındaki tüm handler'ları otomatik bulur
+builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(CreateProductCommand).Assembly));
 
-// Swagger
+// ValidationBehavior'ı pipeline'a ekle — her request'ten önce çalışır
+builder.Services.AddTransient(
+    typeof(IPipelineBehavior<,>),
+    typeof(ValidationBehavior<,>));
+
+// FluentValidation — Application katmanındaki tüm validator'ları otomatik bulur
+builder.Services.AddValidatorsFromAssembly(typeof(CreateProductCommand).Assembly);
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
