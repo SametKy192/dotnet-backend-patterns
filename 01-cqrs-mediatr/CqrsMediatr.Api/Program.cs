@@ -24,12 +24,29 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+// ValidationException'ı yakala, 400 döndür
+app.UseExceptionHandler(errorApp =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    errorApp.Run(async context =>
+    {
+        context.Response.StatusCode = 400;
+        context.Response.ContentType = "application/json";
 
+        var error = context.Features.Get<Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature>();
+
+        if (error?.Error is FluentValidation.ValidationException validationException)
+        {
+            var errors = validationException.Errors
+                .Select(e => new { field = e.PropertyName, message = e.ErrorMessage });
+
+            await context.Response.WriteAsJsonAsync(new { errors });
+        }
+    });
+});
+
+
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
