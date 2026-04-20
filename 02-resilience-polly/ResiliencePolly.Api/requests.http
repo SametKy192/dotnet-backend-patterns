@@ -1,0 +1,15 @@
+### Retry test — 3 retry dener, hepsi başarısız → 503 döner
+GET http://localhost:5155/api/weather
+Accept: application/json
+
+### Arka arkaya 3+ istek at — circuit breaker açılır
+GET http://localhost:5155/api/weather
+Accept: application/json
+
+###
+GET http://localhost:5155/api/weather
+Accept: application/json
+
+###
+GET http://localhost:5155/api/weather
+Accept: application/json
