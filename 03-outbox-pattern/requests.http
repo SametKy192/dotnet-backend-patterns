@@ -1,0 +1,16 @@
+### Sipariş oluştur — outbox mesajı otomatik oluşur
+POST http://localhost:5155/api/orders
+Content-Type: application/json
+
+{
+  "customerName": "Ahmet Yılmaz",
+  "totalAmount": 299.99
+}
+
+### Siparişleri listele
+GET http://localhost:5155/api/orders
+Accept: application/json
+
+### Outbox mesajlarını gör — 5sn sonra ProcessedAt dolar
+GET http://localhost:5155/api/orders/outbox
+Accept: application/json
