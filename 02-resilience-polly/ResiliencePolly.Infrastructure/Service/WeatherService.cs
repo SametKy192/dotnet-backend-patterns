@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging;
 namespace ResiliencePolly.Infrastructure.Services;
 
 /// <summary>
@@ -22,7 +23,7 @@ public class WeatherService
     public async Task<string> GetWeatherAsync()
     {
         _logger.LogInformation("Dış API'ye istek atılıyor...");
-        var response = await _httpClient.GetAsync("https://httpstat.us/500");
+        var response = await _httpClient.GetAsync("http://httpstat.us/500");
         response.EnsureSuccessStatusCode();
         return await response.Content.ReadAsStringAsync();
     }

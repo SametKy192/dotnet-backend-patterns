@@ -1,5 +1,7 @@
 using Microsoft.Extensions.Http.Resilience;
 using ResiliencePolly.Infrastructure.Services;
+using Microsoft.Extensions.Http.Resilience;
+using Polly;
 
 var builder = WebApplication.CreateBuilder(args);
 
