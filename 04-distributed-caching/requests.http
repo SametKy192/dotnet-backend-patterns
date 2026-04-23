@@ -1,0 +1,14 @@
+### İlk istek — cache miss, DB'den alır, cache'e yazar
+GET http://localhost:5155/api/products/1
+Accept: application/json
+
+### İkinci istek — cache hit, DB'ye gitmez
+GET http://localhost:5155/api/products/1
+Accept: application/json
+
+### Cache'i temizle
+DELETE http://localhost:5155/api/products/1/cache
+
+### Tekrar istek — cache miss, DB'den alır
+GET http://localhost:5155/api/products/1
+Accept: application/json
