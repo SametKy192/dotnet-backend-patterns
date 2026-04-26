@@ -8,8 +8,8 @@ namespace OutboxPattern.Api.Controllers;
 
 /// <summary>
 /// Sipariş controller'ı.
-/// Sipariş ve outbox mesajı aynı transaction içinde kaydedilir.
-/// Servis çökse bile mesaj kaybolmaz.
+/// Sipariş ve outbox mesajı aynı SaveChanges içinde kaydedilir.
+/// Gerçek projede PostgreSQL ile transaction kullanılır.
 /// </summary>
 [ApiController]
 [Route("api/[controller]")]
@@ -24,15 +24,12 @@ public class OrdersController : ControllerBase
 
     /// <summary>
     /// Yeni sipariş oluşturur.
-    /// Sipariş + OutboxMessage aynı transaction'da kaydedilir.
+    /// Sipariş + OutboxMessage aynı SaveChanges'da kaydedilir.
     /// POST /api/orders
     /// </summary>
     [HttpPost]
     public async Task<IActionResult> Create(Order order)
     {
-        // Transaction başlat — ikisi birlikte commit ya da ikisi rollback
-        await using var transaction = await _dbContext.Database.BeginTransactionAsync();
-
         // Siparişi kaydet
         _dbContext.Orders.Add(order);
 
@@ -52,7 +49,6 @@ public class OrdersController : ControllerBase
 
         // İkisini birlikte kaydet
         await _dbContext.SaveChangesAsync();
-        await transaction.CommitAsync();
 
         return CreatedAtAction(nameof(GetAll), new { id = order.Id }, order);
     }
