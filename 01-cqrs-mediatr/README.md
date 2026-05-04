@@ -62,3 +62,6 @@ dotnet run
 |---------|---------|
 | MediatR | Command/Query dispatcher |
 | FluentValidation | Validation rules |
+
+## Notes
+- In-memory list is used for simplicity. Replace with a real database in production.
