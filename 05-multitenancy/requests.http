@@ -1,0 +1,29 @@
+### Tenant A — ürün ekle
+POST http://localhost:5155/api/products
+Content-Type: application/json
+X-Tenant-Id: tenant-a
+
+{
+  "name": "Tenant A Laptop",
+  "price": 999.99
+}
+
+### Tenant B — ürün ekle
+POST http://localhost:5155/api/products
+Content-Type: application/json
+X-Tenant-Id: tenant-b
+
+{
+  "name": "Tenant B Mouse",
+  "price": 29.99
+}
+
+### Tenant A — sadece kendi ürünlerini görür
+GET http://localhost:5155/api/products
+Accept: application/json
+X-Tenant-Id: tenant-a
+
+### Tenant B — sadece kendi ürünlerini görür
+GET http://localhost:5155/api/products
+Accept: application/json
+X-Tenant-Id: tenant-b
