@@ -1,0 +1,37 @@
+### Fixed window test — 6 kez at, 6.sında 429 alırsın
+GET http://localhost:5155/api/products
+Accept: application/json
+
+###
+GET http://localhost:5155/api/products
+Accept: application/json
+
+###
+GET http://localhost:5155/api/products
+Accept: application/json
+
+###
+GET http://localhost:5155/api/products
+Accept: application/json
+
+###
+GET http://localhost:5155/api/products
+Accept: application/json
+
+###
+GET http://localhost:5155/api/products
+Accept: application/json
+
+### Sliding window test
+GET http://localhost:5155/api/products/search?q=laptop
+Accept: application/json
+
+### Token bucket test
+POST http://localhost:5155/api/products
+Content-Type: application/json
+
+{}
+
+### Health — limit yok, her zaman çalışır
+GET http://localhost:5155/api/products/health
+Accept: application/json
