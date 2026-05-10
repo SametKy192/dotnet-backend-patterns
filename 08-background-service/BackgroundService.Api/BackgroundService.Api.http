@@ -1,0 +1,6 @@
+@BackgroundService.Api_HostAddress = http://localhost:5278
+
+GET {{BackgroundService.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
