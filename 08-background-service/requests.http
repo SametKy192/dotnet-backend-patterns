@@ -1,0 +1,17 @@
+### Email kuyruğa ekle — hemen 202 döner
+POST http://localhost:5155/api/email
+Content-Type: application/json
+
+"ahmet@example.com"
+
+### Birden fazla email ekle
+POST http://localhost:5155/api/email
+Content-Type: application/json
+
+"mehmet@example.com"
+
+###
+POST http://localhost:5155/api/email
+Content-Type: application/json
+
+"ayse@example.com"
