@@ -1,0 +1,14 @@
+### Önce server'ı başlat: dotnet run --urls=http://localhost:5200
+### Sonra client'ı başlat: dotnet run
+
+### Tüm ürünleri stream olarak al
+GET http://localhost:5155/api/products
+Accept: application/json
+
+### Tek ürün getir
+GET http://localhost:5155/api/products/1
+Accept: application/json
+
+### Olmayan ürün — hata döner
+GET http://localhost:5155/api/products/99
+Accept: application/json
