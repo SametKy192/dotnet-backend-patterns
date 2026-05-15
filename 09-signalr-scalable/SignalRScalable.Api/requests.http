@@ -1,0 +1,17 @@
+### Tüm istemcilere broadcast
+POST http://localhost:5155/api/notification/broadcast
+Content-Type: application/json
+
+"Sisteme yeni güncelleme geldi!"
+
+### Belirli gruba mesaj
+POST http://localhost:5155/api/notification/group/siparis-grubu
+Content-Type: application/json
+
+"Siparişiniz kargoya verildi"
+
+### Admin grubuna mesaj
+POST http://localhost:5155/api/notification/group/admin
+Content-Type: application/json
+
+"Yeni kullanıcı kaydı oldu"
