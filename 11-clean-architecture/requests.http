@@ -1,0 +1,46 @@
+### Tüm ürünleri getir
+GET http://localhost:5155/api/products
+Accept: application/json
+
+### Ürün oluştur
+POST http://localhost:5155/api/products
+Content-Type: application/json
+
+{
+  "name": "Laptop",
+  "price": 999.99
+}
+
+### Id ile getir
+GET http://localhost:5155/api/products/1
+Accept: application/json
+
+### Güncelle
+PUT http://localhost:5155/api/products/1
+Content-Type: application/json
+
+{
+  "name": "Gaming Laptop",
+  "price": 1299.99
+}
+
+### Sil
+DELETE http://localhost:5155/api/products/1
+
+### Domain iş kuralı testi — boş name
+POST http://localhost:5155/api/products
+Content-Type: application/json
+
+{
+  "name": "",
+  "price": 999.99
+}
+
+### Domain iş kuralı testi — negatif fiyat
+POST http://localhost:5155/api/products
+Content-Type: application/json
+
+{
+  "name": "Laptop",
+  "price": -1
+}
