@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="JwtAuth.Api/JwtAuth.Api.csproj" />
+  <Project Path="JwtAuth.Application/JwtAuth.Application.csproj" />
+  <Project Path="JwtAuth.Infrastructure/JwtAuth.Infrastructure.csproj" />
+</Solution>
