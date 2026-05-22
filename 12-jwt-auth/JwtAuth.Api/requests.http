@@ -1,0 +1,37 @@
+### Kullanıcı kaydı
+POST http://localhost:5155/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "samet",
+  "password": "Password123!"
+}
+
+### Giriş
+POST http://localhost:5155/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "samet",
+  "password": "Password123!"
+}
+
+### Korumalı endpoint
+GET http://localhost:5155/api/auth/me
+Authorization: Bearer BURAYA_ACCESS_TOKEN_YAPISTIR
+
+### Token yenileme
+POST http://localhost:5155/api/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "BURAYA_REFRESH_TOKEN_YAPISTIR"
+}
+
+### Çıkış
+POST http://localhost:5155/api/auth/logout
+Content-Type: application/json
+
+{
+  "refreshToken": "BURAYA_REFRESH_TOKEN_YAPISTIR"
+}
