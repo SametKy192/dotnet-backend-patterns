@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="EFCorePostgreSQL.Api/EFCorePostgreSQL.Api.csproj" />
+  <Project Path="EFCorePostgreSQL.Domain/EFCorePostgreSQL.Domain.csproj" />
+  <Project Path="EFCorePostgreSQL.Infrastructure/EFCorePostgreSQL.Infrastructure.csproj" />
+</Solution>
