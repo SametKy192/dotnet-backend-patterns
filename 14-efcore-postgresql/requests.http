@@ -1,0 +1,24 @@
+### Tüm ürünleri kategori ile getir
+GET http://localhost:5155/api/products
+Accept: application/json
+
+### Kategoriye göre filtrele
+GET http://localhost:5155/api/products/category/1
+Accept: application/json
+
+### Fiyat aralığına göre filtrele
+GET http://localhost:5155/api/products/price?min=10&max=100
+Accept: application/json
+
+### Yeni ürün ekle
+POST http://localhost:5155/api/products
+Content-Type: application/json
+
+{
+  "name": "Monitor",
+  "price": 349.99,
+  "categoryId": 1
+}
+
+### Ürün sil
+DELETE http://localhost:5155/api/products/1
