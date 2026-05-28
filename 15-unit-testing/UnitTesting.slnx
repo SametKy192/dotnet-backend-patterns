@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="UnitTesting.Api/UnitTesting.Api.csproj" />
+  <Project Path="UnitTesting.Application/UnitTesting.Application.csproj" />
+  <Project Path="UnitTesting.Tests/UnitTesting.Tests.csproj" />
+</Solution>
