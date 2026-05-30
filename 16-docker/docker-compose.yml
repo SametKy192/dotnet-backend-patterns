@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  # .NET API servisi
+  api:
+    build:
+      context: ./DockerDemo.Api
+      dockerfile: Dockerfile
+    ports:
+      # Host:Container port mapping
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - app-network
+
+  # PostgreSQL servisi
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: dockerdemo
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password123
+    ports:
+      - "5432:5432"
+    volumes:
+      # Veri kalıcılığı — container silinse bile veriler korunur
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  # Redis servisi
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
+
+# Named volumes — veri kalıcılığı için
+volumes:
+  postgres_data:
+
+# Network — servisler birbirleriyle iletişim kurar
+networks:
+  app-network:
+    driver: bridge
