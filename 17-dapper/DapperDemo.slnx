@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="DapperDemo.Api/DapperDemo.Api.csproj" />
+  <Project Path="DapperDemo.Infrastructure/DapperDemo.Infrastructure.csproj" />
+</Solution>
