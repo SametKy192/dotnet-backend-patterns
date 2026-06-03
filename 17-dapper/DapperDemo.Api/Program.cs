@@ -1,41 +1,38 @@
+using System.Data;
+using Dapper;
+using DapperDemo.Infrastructure.Data;
+using DapperDemo.Infrastructure.Repositories;
+using Microsoft.Data.Sqlite;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddControllers();
+
+// SQLite bağlantısı — Dapper direkt IDbConnection kullanır
+// Gerçek projede: new SqlConnection(connectionString) veya NpgsqlConnection
+builder.Services.AddScoped<IDbConnection>(_ =>
+    new SqliteConnection("Data Source=dapper-demo.db"));
+
+builder.Services.AddScoped<ProductRepository>();
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// Veritabanını başlat
+using (var scope = app.Services.CreateScope())
 {
-    app.MapOpenApi();
+    var connection = scope.ServiceProvider.GetRequiredService<IDbConnection>();
+    connection.Open();
+    var initializer = new DbInitializer(connection);
+    initializer.Initialize();
 }
 
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseHttpsRedirection();
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+app.UseAuthorization();
+app.MapControllers();
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
