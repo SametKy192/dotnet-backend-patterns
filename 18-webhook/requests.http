@@ -1,0 +1,32 @@
+### 1. Abonelik oluştur — test receiver'a gönder
+POST http://localhost:5155/api/webhook/subscribe
+Content-Type: application/json
+
+{
+  "eventType": "order.created",
+  "targetUrl": "http://localhost:5155/api/webhook/receiver"
+}
+
+### 2. Tüm abonelikleri listele
+GET http://localhost:5155/api/webhook/subscriptions
+Accept: application/json
+
+### 3. Event tetikle — abonelere gönderilir
+POST http://localhost:5155/api/webhook/trigger
+Content-Type: application/json
+
+{
+  "eventType": "order.created",
+  "payload": {
+    "orderId": 123,
+    "customerName": "Ahmet Yılmaz",
+    "totalAmount": 299.99
+  }
+}
+
+### 4. Gönderim loglarını gör
+GET http://localhost:5155/api/webhook/deliveries
+Accept: application/json
+
+### 5. Aboneliği iptal et
+DELETE http://localhost:5155/api/webhook/1
