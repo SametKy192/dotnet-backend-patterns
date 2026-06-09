@@ -1,3 +1,8 @@
+
+# =============================================
+# 18-webhook/README.md
+# =============================================
+
 # 18 — Webhook Pattern
 
 A .NET 8 implementation of the Webhook pattern with HMAC signature validation and retry mechanism.
@@ -11,44 +16,57 @@ A .NET 8 implementation of the Webhook pattern with HMAC signature validation an
 
 ## How It Works
 
-Client subscribes: POST /webhook/subscribe { eventType, targetUrl }
-Event triggers: POST /webhook/trigger { eventType, payload }
-Service finds active subscribers for that eventType
-Sends POST to each targetUrl with HMAC signature
-If fails → retry up to 3 times with exponential backoff
-Logs every delivery attempt
-
+```
+1. Client subscribes: POST /webhook/subscribe { eventType, targetUrl }
+2. Event triggers: POST /webhook/trigger { eventType, payload }
+3. Service finds active subscribers for that eventType
+4. Sends POST to each targetUrl with HMAC signature
+5. If fails → retry up to 3 times with exponential backoff
+6. Logs every delivery attempt
+```
 
 ## HMAC Signature
+
+```
 X-Webhook-Signature: sha256=abc123...
+
 // Receiver verifies:
 var expected = ComputeHmac(payload, secret);
 var isValid = expected == receivedSignature;
+```
 
 ## Retry Strategy
+
+```
 Attempt 1 → fail → wait 2s
 Attempt 2 → fail → wait 4s
 Attempt 3 → fail → mark as failed
-
+```
 
 ## Project Structure
+
+```
 WebhookPattern.Infrastructure/
 ├── Models/
 │   ├── WebhookSubscription.cs
 │   └── WebhookDelivery.cs
 └── Services/
-└── WebhookService.cs    ← Core logic
+    └── WebhookService.cs    ← Core logic
+
 WebhookPattern.Api/
 └── Controllers/
-└── WebhookController.cs
+    └── WebhookController.cs
+```
 
 ## Run
+
 ```bash
 cd WebhookPattern.Api
 dotnet run
 ```
 
 ## Endpoints
+
 | Method | URL | Description |
 |--------|-----|-------------|
 | POST | /api/webhook/subscribe | Create subscription |
@@ -59,6 +77,7 @@ dotnet run
 | POST | /api/webhook/receiver | Test receiver |
 
 ## Packages Used
+
 | Package | Purpose |
 |---------|---------|
 | HttpClient | Sending webhooks |

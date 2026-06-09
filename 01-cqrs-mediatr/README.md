@@ -1,3 +1,7 @@
+# =============================================
+# 01-cqrs-mediatr/README.md
+# =============================================
+
 # 01 — CQRS + MediatR
 
 A clean implementation of the CQRS pattern using MediatR with FluentValidation pipeline behavior.
@@ -8,32 +12,40 @@ A clean implementation of the CQRS pattern using MediatR with FluentValidation p
 - Pipeline Behavior for validation
 
 ## Project Structure
+
+```
 CqrsMediatr.Domain/
 └── Entities/
-└── Product.cs
+    └── Product.cs
+
 CqrsMediatr.Application/
 ├── Common/
 │   └── Behaviors/
 │       └── ValidationBehavior.cs
 └── Products/
-├── Commands/CreateProduct/
-│   ├── CreateProductCommand.cs
-│   ├── CreateProductCommandValidator.cs
-│   └── CreateProductHandler.cs
-└── Queries/GetProducts/
-├── GetProductsQuery.cs
-└── GetProductsHandler.cs
+    ├── Commands/CreateProduct/
+    │   ├── CreateProductCommand.cs
+    │   ├── CreateProductCommandValidator.cs
+    │   └── CreateProductHandler.cs
+    └── Queries/GetProducts/
+        ├── GetProductsQuery.cs
+        └── GetProductsHandler.cs
+
 CqrsMediatr.Api/
 └── Controllers/
-└── ProductsController.cs
+    └── ProductsController.cs
+```
 
 ## How It Works
+
+```
 HTTP Request
-→ Controller
-→ MediatR.Send()
-→ [ValidationBehavior]  ← returns 400 if invalid
-→ Handler
-→ Response
+    → Controller
+    → MediatR.Send()
+    → [ValidationBehavior]  ← returns 400 if invalid
+    → Handler
+    → Response
+```
 
 ## Run
 
@@ -62,3 +74,5 @@ dotnet run
 |---------|---------|
 | MediatR | Command/Query dispatcher |
 | FluentValidation | Validation rules |
+
+---

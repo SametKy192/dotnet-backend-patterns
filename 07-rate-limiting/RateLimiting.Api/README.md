@@ -1,3 +1,8 @@
+
+# =============================================
+# 07-rate-limiting/README.md
+# =============================================
+
 # 07 — Rate Limiting
 
 A .NET 8 implementation of Fixed Window, Sliding Window, and Token Bucket rate limiting using built-in middleware.
@@ -16,12 +21,14 @@ A .NET 8 implementation of Fixed Window, Sliding Window, and Token Bucket rate l
 | Token Bucket | Tokens accumulate → allows burst | Upload, processing APIs |
 
 ## Run
+
 ```bash
 cd RateLimiting.Api
 dotnet run
 ```
 
 ## Endpoints
+
 | Method | URL | Policy |
 |--------|-----|--------|
 | GET | /api/products | Fixed Window |
@@ -30,6 +37,9 @@ dotnet run
 | GET | /api/products/health | No limit |
 
 ## Packages Used
+
 | Package | Purpose |
 |---------|---------|
 | Built-in .NET 8 | Rate limiting middleware |
+
+---

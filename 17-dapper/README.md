@@ -1,3 +1,8 @@
+
+# =============================================
+# 17-dapper/README.md
+# =============================================
+
 # 17 — Dapper
 
 A .NET 8 implementation of high-performance data access using Dapper with SQLite.
@@ -45,3 +50,46 @@ var products = await _connection.QueryAsync<Product>(sql);
 ```
 
 ## Project Structure
+
+```
+DapperDemo.Infrastructure/
+├── Data/
+│   └── DbInitializer.cs         ← Creates tables + seed data
+├── Models/
+│   ├── Product.cs
+│   └── Category.cs
+└── Repositories/
+    └── ProductRepository.cs     ← All SQL queries
+
+DapperDemo.Api/
+└── Controllers/
+    └── ProductsController.cs
+```
+
+## Run
+
+```bash
+cd DapperDemo.Api
+dotnet run
+```
+
+## Endpoints
+
+| Method | URL | Description |
+|--------|-----|-------------|
+| GET | /api/products | All with category (JOIN) |
+| GET | /api/products/{id} | Get by id |
+| GET | /api/products/price?min=&max= | Filter by price |
+| GET | /api/products/stats | Count by category (GROUP BY) |
+| POST | /api/products | Create |
+| PUT | /api/products/{id} | Update |
+| DELETE | /api/products/{id} | Delete |
+
+## Packages Used
+
+| Package | Purpose |
+|---------|---------|
+| Dapper | Micro ORM |
+| Microsoft.Data.Sqlite | SQLite driver |
+
+---

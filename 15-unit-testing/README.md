@@ -1,3 +1,8 @@
+
+# =============================================
+# 15-unit-testing/README.md
+# =============================================
+
 # 15 — Unit Testing
 
 A .NET 8 unit testing implementation using xUnit, Moq, and FluentAssertions.
@@ -35,10 +40,48 @@ _repositoryMock.Verify(r => r.AddAsync(It.IsAny<Product>()), Times.Once);
 
 ### FluentAssertions
 ```csharp
-// Instead of: Assert.Equal(2, result.Count)
 result.Should().HaveCount(2);
 result.Should().Contain(p => p.Name == "Laptop");
 await action.Should().ThrowAsync<KeyNotFoundException>();
 ```
 
 ## Project Structure
+
+```
+UnitTesting.Application/
+├── Interfaces/
+│   └── IProductRepository.cs   ← Mocked in tests
+├── Models/
+│   └── Product.cs
+└── Services/
+    └── ProductService.cs       ← System Under Test
+
+UnitTesting.Tests/
+└── ProductServiceTests.cs      ← All test cases
+```
+
+## Run Tests
+
+```bash
+cd UnitTesting.Tests
+dotnet test
+```
+
+## Test Coverage
+
+| Method | Test Cases |
+|--------|-----------|
+| GetAllAsync | Returns list, returns empty |
+| GetByIdAsync | Found, not found |
+| CreateAsync | Valid data, invalid price (3 cases), empty name (3 cases) |
+| DeleteAsync | Exists, not found |
+
+## Packages Used
+
+| Package | Purpose |
+|---------|---------|
+| xUnit | Test framework |
+| Moq | Mocking |
+| FluentAssertions | Readable assertions |
+
+---
