@@ -1,41 +1,67 @@
+using HealthChecks.Api.HealthChecks;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddControllers();
+builder.Services.AddHttpClient<ExternalApiHealthCheck>();
+
+// Health check'leri kaydet
+builder.Services.AddHealthChecks()
+    // Custom health check'ler
+    .AddCheck<DatabaseHealthCheck>("database",
+        tags: new[] { "db", "critical" })
+    .AddCheck<RedisHealthCheck>("redis",
+        tags: new[] { "cache" })
+    .AddCheck<ExternalApiHealthCheck>("external-api",
+        tags: new[] { "external" })
+    // Built-in memory check
+    .AddCheck("memory", () =>
+    {
+        var allocated = GC.GetTotalMemory(false);
+        var limit = 500 * 1024 * 1024; // 500MB
+
+        return allocated < limit
+            ? Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckResult.Healthy(
+                $"Memory: {allocated / 1024 / 1024}MB")
+            : Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckResult.Degraded(
+                $"Memory high: {allocated / 1024 / 1024}MB");
+    }, tags: new[] { "memory" });
+
+// Health Checks UI
+builder.Services.AddHealthChecksUI(opt =>
+{
+    opt.SetEvaluationTimeInSeconds(30); // 30 saniyede bir kontrol et
+    opt.AddHealthCheckEndpoint("API", "/health");
+}).AddInMemoryStorage();
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
-
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseHttpsRedirection();
+app.UseAuthorization();
+app.MapControllers();
 
-var summaries = new[]
+// Health check endpoint'leri
+app.MapHealthChecks("/health", new HealthCheckOptions
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    // Tüm check'lerin detaylı sonucunu döndür
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
 
-app.MapGet("/weatherforecast", () =>
+// Sadece kritik check'ler
+app.MapHealthChecks("/health/critical", new HealthCheckOptions
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+    Predicate = check => check.Tags.Contains("critical"),
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
+
+// Health Checks UI dashboard
+app.MapHealthChecksUI(options => options.UIPath = "/health-ui");
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
