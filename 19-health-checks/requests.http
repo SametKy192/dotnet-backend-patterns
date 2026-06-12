@@ -1,0 +1,11 @@
+### Tüm health check'leri çalıştır
+GET http://localhost:5155/health
+Accept: application/json
+
+### Sadece kritik check'ler
+GET http://localhost:5155/health/critical
+Accept: application/json
+
+### Detaylı durum raporu
+GET http://localhost:5155/api/status
+Accept: application/json
