@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MassTransit" Version="9.1.2" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="9.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.8" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MassTransitDemo.Contracts\MassTransitDemo.Contracts.csproj" />
+    <ProjectReference Include="..\MassTransitDemo.Consumers\MassTransitDemo.Consumers.csproj" />
+  </ItemGroup>
+
+</Project>
