@@ -1,0 +1,32 @@
+### RabbitMQ başlat: docker run -p 5672:5672 -p 15672:15672 rabbitmq:management
+### RabbitMQ UI: http://localhost:15672 (guest/guest)
+
+### Sipariş oluştur — OrderCreatedEvent publish edilir
+POST http://localhost:5155/api/orders
+Content-Type: application/json
+
+{
+  "customerName": "Ahmet Yılmaz",
+  "totalAmount": 299.99
+}
+
+### Kargo eventi gönder — OrderShippedEvent publish edilir
+POST http://localhost:5155/api/orders/1234/ship
+
+### Birden fazla sipariş oluştur — consumer'ların paralel çalıştığını gör
+POST http://localhost:5155/api/orders
+Content-Type: application/json
+
+{
+  "customerName": "Mehmet Kaya",
+  "totalAmount": 149.99
+}
+
+###
+POST http://localhost:5155/api/orders
+Content-Type: application/json
+
+{
+  "customerName": "Ayşe Demir",
+  "totalAmount": 499.99
+}
