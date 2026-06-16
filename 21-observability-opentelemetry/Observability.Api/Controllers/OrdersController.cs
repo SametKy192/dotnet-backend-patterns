@@ -88,6 +88,7 @@ public class OrdersController : ControllerBase
     /// POST /api/orders
     /// </summary>
     [HttpPost]
+    [Obsolete]
     public async Task<IActionResult> Create([FromBody] CreateOrderRequest request)
     {
         using var activity = ActivitySource.StartActivity("CreateOrder");
