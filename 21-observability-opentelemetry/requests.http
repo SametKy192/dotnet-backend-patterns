@@ -1,0 +1,29 @@
+### Sipariş listesi — konsolda structured log gör
+GET http://localhost:5155/api/orders
+Accept: application/json
+
+### Sipariş detayı — nested span gör
+GET http://localhost:5155/api/orders/1
+Accept: application/json
+
+### Olmayan sipariş — warning log gör
+GET http://localhost:5155/api/orders/999
+Accept: application/json
+
+### Sipariş oluştur — success log gör
+POST http://localhost:5155/api/orders
+Content-Type: application/json
+
+{
+  "customerName": "Ahmet Yılmaz",
+  "totalAmount": 299.99
+}
+
+### Geçersiz tutar — validation warning gör
+POST http://localhost:5155/api/orders
+Content-Type: application/json
+
+{
+  "customerName": "Test",
+  "totalAmount": -1
+}
