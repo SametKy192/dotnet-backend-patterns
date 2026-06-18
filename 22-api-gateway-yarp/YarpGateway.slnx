@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="YarpGateway.Gateway/YarpGateway.Gateway.csproj" />
+  <Project Path="YarpGateway.OrderService/YarpGateway.OrderService.csproj" />
+  <Project Path="YarpGateway.ProductService/YarpGateway.ProductService.csproj" />
+</Solution>
