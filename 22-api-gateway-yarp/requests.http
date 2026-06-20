@@ -1,0 +1,26 @@
+### Önce servisleri başlat:
+### OrderService:   dotnet run --urls=http://localhost:5001
+### ProductService: dotnet run --urls=http://localhost:5002
+### Gateway:        dotnet run --urls=http://localhost:5000
+
+### Gateway üzerinden siparişlere eriş
+### YARP bunu http://localhost:5001/api/orders'a yönlendirir
+GET http://localhost:5000/gateway/orders
+Accept: application/json
+
+### Gateway üzerinden sipariş detayı
+GET http://localhost:5000/gateway/orders/1
+Accept: application/json
+
+### Gateway üzerinden ürünlere eriş
+### YARP bunu http://localhost:5002/api/products'a yönlendirir
+GET http://localhost:5000/gateway/products
+Accept: application/json
+
+### Direkt OrderService'e eriş (gateway bypass)
+GET http://localhost:5001/api/orders
+Accept: application/json
+
+### Direkt ProductService'e eriş (gateway bypass)
+GET http://localhost:5002/api/products
+Accept: application/json
