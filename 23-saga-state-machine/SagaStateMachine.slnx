@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="SagaStateMachine.Api/SagaStateMachine.Api.csproj" />
+  <Project Path="SagaStateMachine.Contracts/SagaStateMachine.Contracts.csproj" />
+  <Project Path="SagaStateMachine.Saga/SagaStateMachine.Saga.csproj" />
+</Solution>

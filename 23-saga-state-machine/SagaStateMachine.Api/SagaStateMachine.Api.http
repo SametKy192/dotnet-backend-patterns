@@ -1,0 +1,6 @@
+@SagaStateMachine.Api_HostAddress = http://localhost:5014
+
+GET {{SagaStateMachine.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
