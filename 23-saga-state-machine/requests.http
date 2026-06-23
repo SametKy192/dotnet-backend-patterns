@@ -1,0 +1,32 @@
+### Başarılı senaryo — tüm adımlar geçer
+POST http://localhost:5155/api/orders
+Content-Type: application/json
+
+{
+  "customerName": "Ahmet Yılmaz",
+  "totalAmount": 299.99,
+  "productId": 1,
+  "quantity": 2
+}
+
+### Stok yetersiz — ProductId=999 → StockReservationFailed → OrderCancelled
+POST http://localhost:5155/api/orders
+Content-Type: application/json
+
+{
+  "customerName": "Mehmet Kaya",
+  "totalAmount": 149.99,
+  "productId": 999,
+  "quantity": 1
+}
+
+### Ödeme başarısız — Amount>1000 → PaymentFailed → ReleaseStock → OrderCancelled
+POST http://localhost:5155/api/orders
+Content-Type: application/json
+
+{
+  "customerName": "Ayşe Demir",
+  "totalAmount": 1500.00,
+  "productId": 1,
+  "quantity": 1
+}
