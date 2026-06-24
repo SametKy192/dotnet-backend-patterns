@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="DistributedLock.Api/DistributedLock.Api.csproj" />
+  <Project Path="DistributedLock.Infrastructure/DistributedLock.Infrastructure.csproj" />
+</Solution>
