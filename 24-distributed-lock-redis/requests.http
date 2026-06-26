@@ -1,0 +1,29 @@
+### Redis başlat: docker run -p 6379:6379 redis
+
+### Tüm ürünleri ve stokları gör
+GET http://localhost:5155/api/stock
+Accept: application/json
+
+### Güvenli stok düşürme — distributed lock ile
+POST http://localhost:5155/api/stock/1/decrement
+Content-Type: application/json
+
+{
+  "quantity": 1
+}
+
+### Güvensiz stok düşürme — race condition riski
+POST http://localhost:5155/api/stock/1/decrement-unsafe
+Content-Type: application/json
+
+{
+  "quantity": 1
+}
+
+### Race condition testi — aynı anda 5 istek
+### Güvenli versiyonda sadece stok kadar başarılı olur
+POST http://localhost:5155/api/stock/1/race-test
+
+### Stokları tekrar kontrol et
+GET http://localhost:5155/api/stock
+Accept: application/json
