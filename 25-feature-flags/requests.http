@@ -1,0 +1,18 @@
+### Tüm feature flag'lerin durumunu gör
+GET http://localhost:5155/api/products/features
+Accept: application/json
+
+### Ürün listesi
+### AiRecommendations=true ise AI önerileri de gelir
+GET http://localhost:5155/api/products
+Accept: application/json
+
+### Checkout
+### NewCheckout=true ise v2, false ise v1 döner
+GET http://localhost:5155/api/products/checkout
+Accept: application/json
+
+### Beta endpoint
+### BetaFeature=true ise 200, false ise 404 döner
+GET http://localhost:5155/api/products/beta
+Accept: application/json
