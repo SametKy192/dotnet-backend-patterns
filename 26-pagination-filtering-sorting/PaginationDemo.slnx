@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="PaginationDemo.Api/PaginationDemo.Api.csproj" />
+  <Project Path="PaginationDemo.Application/PaginationDemo.Application.csproj" />
+</Solution>
