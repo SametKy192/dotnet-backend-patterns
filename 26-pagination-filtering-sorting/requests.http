@@ -1,0 +1,31 @@
+### Varsayılan — sayfa 1, 10 kayıt
+GET http://localhost:5155/api/products
+Accept: application/json
+
+### Sayfa 2
+GET http://localhost:5155/api/products?page=2&pageSize=10
+Accept: application/json
+
+### İsme göre ara
+GET http://localhost:5155/api/products?search=laptop
+Accept: application/json
+
+### Kategoriye göre filtrele
+GET http://localhost:5155/api/products?category=electronics
+Accept: application/json
+
+### Fiyat aralığına göre filtrele
+GET http://localhost:5155/api/products?minPrice=100&maxPrice=500
+Accept: application/json
+
+### Fiyata göre azalan sırala
+GET http://localhost:5155/api/products?sortBy=price&sortOrder=desc
+Accept: application/json
+
+### Hepsini birleştir
+GET http://localhost:5155/api/products?page=1&pageSize=5&category=electronics&minPrice=50&maxPrice=1000&sortBy=price&sortOrder=asc
+Accept: application/json
+
+### Büyük sayfa — max 100 ile sınırlandı
+GET http://localhost:5155/api/products?pageSize=200
+Accept: application/json
