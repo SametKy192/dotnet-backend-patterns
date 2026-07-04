@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="GlobalExceptionHandling.Api/GlobalExceptionHandling.Api.csproj" />
+  <Project Path="GlobalExceptionHandling.Application/GlobalExceptionHandling.Application.csproj" />
+</Solution>
