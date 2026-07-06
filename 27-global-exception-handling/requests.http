@@ -1,0 +1,48 @@
+### Tüm ürünleri getir — başarılı
+GET http://localhost:5155/api/products
+Accept: application/json
+
+### Ürün getir — başarılı
+GET http://localhost:5155/api/products/1
+Accept: application/json
+
+### 404 — NotFoundException → Problem Details
+GET http://localhost:5155/api/products/999
+Accept: application/json
+
+### Yeni ürün oluştur — başarılı
+POST http://localhost:5155/api/products
+Content-Type: application/json
+
+{
+  "name": "Keyboard",
+  "price": 79.99
+}
+
+### 400 — ValidationException → Problem Details (boş name)
+POST http://localhost:5155/api/products
+Content-Type: application/json
+
+{
+  "name": "",
+  "price": -1
+}
+
+### 409 — ConflictException → Problem Details (aynı isim)
+POST http://localhost:5155/api/products
+Content-Type: application/json
+
+{
+  "name": "Laptop",
+  "price": 999.99
+}
+
+### 403 — ForbiddenException → Problem Details (User rolü)
+DELETE http://localhost:5155/api/products/1?role=User
+
+### 204 — başarılı silme (Admin rolü)
+DELETE http://localhost:5155/api/products/1?role=Admin
+
+### 500 — beklenmedik hata → Problem Details
+GET http://localhost:5155/api/products/error
+Accept: application/json
