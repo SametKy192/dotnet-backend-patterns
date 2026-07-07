@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="IdempotencyPattern.Api/IdempotencyPattern.Api.csproj" />
+  <Project Path="IdempotencyPattern.Infrastructure/IdempotencyPattern.Infrastructure.csproj" />
+</Solution>
