@@ -1,0 +1,60 @@
+### 1. Sipariş oluştur — ilk istek
+### Idempotency-Key header'ı ekle (UUID)
+POST http://localhost:5155/api/orders
+Content-Type: application/json
+Idempotency-Key: 550e8400-e29b-41d4-a716-446655440000
+
+{
+  "customerName": "Ahmet Yılmaz",
+  "totalAmount": 299.99
+}
+
+### 2. AYNI KEY ile tekrar gönder — cached response gelir, yeni sipariş oluşmaz
+### X-Idempotency-Replayed: true header'ını gör
+POST http://localhost:5155/api/orders
+Content-Type: application/json
+Idempotency-Key: 550e8400-e29b-41d4-a716-446655440000
+
+{
+  "customerName": "Ahmet Yılmaz",
+  "totalAmount": 299.99
+}
+
+### 3. FARKLI KEY ile gönder — yeni sipariş oluşur
+POST http://localhost:5155/api/orders
+Content-Type: application/json
+Idempotency-Key: 660e8400-e29b-41d4-a716-446655440001
+
+{
+  "customerName": "Mehmet Kaya",
+  "totalAmount": 149.99
+}
+
+### 4. Header olmadan gönder — normal çalışır, idempotency yok
+POST http://localhost:5155/api/orders
+Content-Type: application/json
+
+{
+  "customerName": "Ayşe Demir",
+  "totalAmount": 199.99
+}
+
+### 5. Ödeme — çift tıklama koruması
+POST http://localhost:5155/api/orders/1/payment
+Content-Type: application/json
+Idempotency-Key: 770e8400-e29b-41d4-a716-446655440002
+
+{
+  "amount": 299.99,
+  "cardLast4": "1234"
+}
+
+### 6. Aynı ödeme tekrar — cached response, ödeme iki kez alınmaz
+POST http://localhost:5155/api/orders/1/payment
+Content-Type: application/json
+Idempotency-Key: 770e8400-e29b-41d4-a716-446655440002
+
+{
+  "amount": 299.99,
+  "cardLast4": "1234"
+}
