@@ -1,0 +1,6 @@
+@SpecificationPattern.Api_HostAddress = http://localhost:5182
+
+GET {{SpecificationPattern.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

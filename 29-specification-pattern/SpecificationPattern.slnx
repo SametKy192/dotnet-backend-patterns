@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="SpecificationPattern.Api/SpecificationPattern.Api.csproj" />
+  <Project Path="SpecificationPattern.Application/SpecificationPattern.Application.csproj" />
+  <Project Path="SpecificationPattern.Infrastructure/SpecificationPattern.Infrastructure.csproj" />
+</Solution>
