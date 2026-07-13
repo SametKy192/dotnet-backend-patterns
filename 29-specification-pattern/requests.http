@@ -1,0 +1,32 @@
+@hostname = localhost
+@port = 5092
+@host = http://{{hostname}}:{{port}}
+
+### 1. Get All Products (Default: Active Only)
+GET {{host}}/api/products
+Accept: application/json
+
+### 2. Get All Products (Including Inactive)
+GET {{host}}/api/products?onlyActive=false
+Accept: application/json
+
+### 3. Filter by Category
+GET {{host}}/api/products?category=Electronics
+Accept: application/json
+
+### 4. Filter by Price Range & Sort Descending
+GET {{host}}/api/products?minPrice=100&maxPrice=1000&sortBy=pricedesc
+Accept: application/json
+
+### 5. Combined Specification Demo (Active AND Furniture AND Price [100, 500])
+# Expected: Only Active Furniture items priced between 100 and 500
+GET {{host}}/api/products/combined-demo
+Accept: application/json
+
+### 6. Paging Demo (Skip 1, Take 2)
+GET {{host}}/api/products?skip=1&take=2
+Accept: application/json
+
+### 7. Get Product by ID
+GET {{host}}/api/products/1
+Accept: application/json
