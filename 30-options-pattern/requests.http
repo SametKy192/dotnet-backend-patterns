@@ -1,0 +1,19 @@
+@hostname = localhost
+@port = 5030
+@host = http://{{hostname}}:{{port}}
+
+### 1. Get Current Config Values (IOptions vs Snapshot vs Monitor)
+GET {{host}}/api/settings
+Accept: application/json
+
+# --- HOW TO TEST DYNAMIC UPDATES ---
+# 1. Start the API.
+# 2. Call GET /api/settings and notice all values are identical.
+# 3. Edit OptionsPattern.Api/appsettings.json to change "Port" to 9999 or "SenderName" to "Updated Company".
+# 4. Call GET /api/settings again.
+# 5. Observe that:
+#    - IOptions stays at port 2525 and "My Company" (no update).
+#    - IOptionsSnapshot updates to port 9999 / "Updated Company".
+#    - IOptionsMonitor updates to port 9999 / "Updated Company".
+# 6. Check the API logs to see:
+#    "SMTP Settings changed dynamically: Server=smtp.mailtrap.io, Port=9999" (handled by IOptionsMonitor.OnChange)
