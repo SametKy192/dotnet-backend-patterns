@@ -1,0 +1,43 @@
+@hostname = localhost
+@port = 5031
+@host = http://{{hostname}}:{{port}}
+
+### 1. Get All Products
+GET {{host}}/api/orders/products
+Accept: application/json
+
+### 2. Get All Orders (Initially Empty)
+GET {{host}}/api/orders
+Accept: application/json
+
+### 3. Create Valid Order (Product ID 1 - Sony Headphones, Quantity 2)
+# Expected: Success (Order created, Product ID 1 stock goes from 5 down to 3)
+POST {{host}}/api/orders
+Content-Type: application/json
+
+{
+  "productId": 1,
+  "quantity": 2
+}
+
+### 4. Verify Stock & Order Creation
+# Observe that Product ID 1 stock is now 3, and Order is saved.
+GET {{host}}/api/orders/products
+Accept: application/json
+
+### 5. Create Invalid Order (Product ID 3 - Mechanical Keyboard, Quantity 5)
+# Product ID 3 only has 1 stock seeded.
+# Expected: BadRequest error ("Insufficient stock...").
+# Database transaction is rolled back, no order is created.
+POST {{host}}/api/orders
+Content-Type: application/json
+
+{
+  "productId": 3,
+  "quantity": 5
+}
+
+### 6. Verify Transaction Rollback
+# Observe that Product ID 3 stock is still 1, and no new orders were saved for Product ID 3.
+GET {{host}}/api/orders/products
+Accept: application/json
