@@ -1,6 +1,6 @@
 # dotnet-backend-patterns
 
-Production-ready .NET 8 backend patterns for modern applications.
+Production-ready .NET backend patterns for modern applications.
 
 ## Patterns
 
@@ -26,10 +26,21 @@ Production-ready .NET 8 backend patterns for modern applications.
 | 18 | [Webhook Pattern](./18-webhook) | Event delivery, retry, signature validation |
 | 19 | [Health Checks](./19-health-checks) | Endpoint monitoring, dashboard |
 | 20 | [Event-Driven with MassTransit](./20-masstransit) | RabbitMQ, consumers, sagas |
+| 21 | [Observability with OpenTelemetry](./21-observability-opentelemetry) | Distributed tracing, metrics, logs, Prometheus, Jaeger |
+| 22 | [API Gateway with YARP](./22-api-gateway-yarp) | Reverse proxy, routing, load balancing |
+| 23 | [Saga State Machine](./23-saga-state-machine) | MassTransit Saga, state transitions, orchestration |
+| 24 | [Distributed Lock with Redis](./24-distributed-lock-redis) | RedLock, resource locking, concurrency protection |
+| 25 | [Feature Flags](./25-feature-flags) | Microsoft.FeatureManagement, runtime toggle |
+| 26 | [Pagination, Filtering & Sorting](./26-pagination-filtering-sorting) | Dynamic query filters, sort expression builders, page results |
+| 27 | [Global Exception Handling](./27-global-exception-handling) | Custom exceptions, IExceptionHandler middleware |
+| 28 | [Idempotency Pattern](./28-idempotency-pattern) | Idempotency middleware, requests replay caching |
+| 29 | [Specification Pattern](./29-specification-pattern) | Reusable query business rules, combination (And/Or/Not) |
+| 30 | [Options Pattern](./30-options-pattern) | Config validation, reload dynamic check, IOptionsMonitor |
+| 31 | [Unit of Work Pattern](./31-unit-of-work-pattern) | Transaction context sharing, commit and rollback safety |
 
 ## Requirements
-- .NET 8 SDK
-- Docker (for Redis, PostgreSQL, RabbitMQ)
+- .NET 8 / 10 SDK
+- Docker (for Redis, PostgreSQL, RabbitMQ, Jaeger)
 
 ## License
 MIT
