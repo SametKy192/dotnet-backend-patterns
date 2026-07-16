@@ -1,0 +1,51 @@
+@hostname = localhost
+@port = 5032
+@host = http://{{hostname}}:{{port}}
+
+### 1. Get All Products (Initial Seeded Data)
+# Expected: Returns the seeded Wireless Mouse and Mechanical Keyboard.
+# Note: CreatedBy will be "System" and CreatedAtUtc will be the seeding time.
+GET {{host}}/api/products
+Accept: application/json
+
+### 2. Create a New Product (User: Alice)
+# Expected: Creates the product.
+# Note: We pass X-User-Id: Alice. The interceptor will automatically populate CreatedBy and CreatedAtUtc.
+POST {{host}}/api/products
+Content-Type: application/json
+X-User-Id: Alice
+
+{
+  "name": "Noise Cancelling Headphones",
+  "price": 199.99
+}
+
+### 3. Get the Created Product (Verify Creation Auditing)
+# Expected: Product ID 3 should have:
+# - CreatedBy: "Alice"
+# - CreatedAtUtc: [current time]
+# - LastModifiedBy: null
+# - LastModifiedAtUtc: null
+GET {{host}}/api/products/3
+Accept: application/json
+
+### 4. Update the Product (User: Bob)
+# Expected: Updates product price.
+# Note: We pass X-User-Id: Bob. The interceptor will automatically populate LastModifiedBy and LastModifiedAtUtc.
+PUT {{host}}/api/products/3
+Content-Type: application/json
+X-User-Id: Bob
+
+{
+  "name": "Noise Cancelling Headphones",
+  "price": 179.99
+}
+
+### 5. Get the Updated Product (Verify Modification Auditing)
+# Expected: Product ID 3 should now have:
+# - CreatedBy: "Alice" (Unchanged)
+# - CreatedAtUtc: [original creation time] (Unchanged)
+# - LastModifiedBy: "Bob"
+# - LastModifiedAtUtc: [current modification time]
+GET {{host}}/api/products/3
+Accept: application/json

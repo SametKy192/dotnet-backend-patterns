@@ -37,6 +37,8 @@ Production-ready .NET backend patterns for modern applications.
 | 29 | [Specification Pattern](./29-specification-pattern) | Reusable query business rules, combination (And/Or/Not) |
 | 30 | [Options Pattern](./30-options-pattern) | Config validation, reload dynamic check, IOptionsMonitor |
 | 31 | [Unit of Work Pattern](./31-unit-of-work-pattern) | Transaction context sharing, commit and rollback safety |
+| 32 | [EF Core Interceptors (Auditing)](./32-efcore-interceptors) | Automatic entity auditing (timestamp & user tracking) using SaveChangesInterceptor |
+
 
 ## Requirements
 - .NET 8 / 10 SDK
