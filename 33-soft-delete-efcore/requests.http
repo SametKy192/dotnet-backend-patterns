@@ -1,0 +1,46 @@
+@hostname = localhost
+@port = 5033
+@host = http://{{hostname}}:{{port}}
+
+### 1. Get Active Users (Initial State)
+# Expected: Returns Alice and Bob. Charlie is soft-deleted, so he is automatically filtered out.
+GET {{host}}/api/users
+Accept: application/json
+
+### 2. Get All Users Including Deleted (Charlie is visible)
+# Expected: Returns Alice, Bob, and Charlie (who has isDeleted: true and deletedAtUtc populated).
+GET {{host}}/api/users/with-deleted
+Accept: application/json
+
+### 3. Create a New User
+# Expected: Creates the user "David" in active state (isDeleted: false).
+POST {{host}}/api/users
+Content-Type: application/json
+
+{
+  "name": "David Miller",
+  "email": "david@example.com"
+}
+
+### 4. Soft Delete User "Bob" (ID 2)
+# Expected: Deletes the user. Under the hood, SoftDeleteInterceptor intercepts and marks IsDeleted = true.
+DELETE {{host}}/api/users/2
+
+### 5. Get Active Users Again (Bob should be gone)
+# Expected: Returns Alice and David. Bob and Charlie are filtered out.
+GET {{host}}/api/users
+Accept: application/json
+
+### 6. Get All Users Including Deleted (Verify Bob's status)
+# Expected: Returns Alice, Bob (isDeleted: true), Charlie (isDeleted: true), and David (isDeleted: false).
+GET {{host}}/api/users/with-deleted
+Accept: application/json
+
+### 7. Restore Soft Deleted User "Bob" (ID 2)
+# Expected: Bob is restored. IsDeleted is set to false and DeletedAtUtc is set to null.
+POST {{host}}/api/users/2/restore
+
+### 8. Get Active Users (Bob should be back!)
+# Expected: Returns Alice, Bob, and David.
+GET {{host}}/api/users
+Accept: application/json
