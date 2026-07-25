@@ -40,6 +40,8 @@ Production-ready .NET backend patterns for modern applications.
 | 32 | [EF Core Interceptors (Auditing)](./32-efcore-interceptors) | Automatic entity auditing (timestamp & user tracking) using SaveChangesInterceptor |
 | 33 | [Soft Delete with EF Core](./33-soft-delete-efcore) | Logical record deletion using Global Query Filters and SaveChangesInterceptor |
 | 34 | [Architecture Tests](./34-architecture-tests) | Automating Clean Architecture boundary enforcement using NetArchTest.Rules |
+| 35 | [REPR Pattern with FastEndpoints](./35-fast-endpoints) | Single-responsibility API slices using FastEndpoints and FluentValidation |
+
 
 
 

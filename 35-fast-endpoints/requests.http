@@ -1,0 +1,41 @@
+@hostname = localhost
+@port = 5035
+@host = http://{{hostname}}:{{port}}
+
+### 1. Get All Products (Initial Seeded Data)
+# Expected: Returns the seeded Wireless Mouse and Mechanical Keyboard.
+GET {{host}}/api/products
+Accept: application/json
+
+### 2. Get Product By ID (Successful)
+# Expected: Returns Product ID 1 (Wireless Mouse)
+GET {{host}}/api/products/1
+Accept: application/json
+
+### 3. Get Product By ID (Not Found)
+# Expected: Returns 404 Not Found
+GET {{host}}/api/products/99
+Accept: application/json
+
+### 4. Create a Valid Product
+# Expected: Returns 201 Created and the created product detail.
+POST {{host}}/api/products
+Content-Type: application/json
+
+{
+  "name": "Noise Cancelling Headphones",
+  "price": 199.99
+}
+
+### 5. Create an Invalid Product (Validation Errors)
+# Expected: Returns 400 Bad Request with FluentValidation errors formatted by FastEndpoints.
+# Validation Rule Violations:
+# - Name is too short (must be >= 3 characters)
+# - Price is <= 0 (must be > 0)
+POST {{host}}/api/products
+Content-Type: application/json
+
+{
+  "name": "Hi",
+  "price": -10.00
+}
