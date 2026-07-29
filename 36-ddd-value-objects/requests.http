@@ -1,0 +1,86 @@
+@hostname = localhost
+@port = 5036
+@host = http://{{hostname}}:{{port}}
+
+### 1. Create a Customer (Success)
+# Expected: Returns 201 Created and the mapped response details.
+POST {{host}}/api/customers
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john.doe@example.com",
+  "street": "123 Main St",
+  "city": "Seattle",
+  "zipCode": "98101",
+  "country": "USA",
+  "balanceAmount": 150.00,
+  "balanceCurrency": "USD"
+}
+
+### 2. Get Customer by ID
+# Expected: Returns Customer details with parsed Value Objects.
+GET {{host}}/api/customers/1
+Accept: application/json
+
+### 3. Create Customer with Invalid Email (Failure)
+# Expected: Returns 400 Bad Request with domain validation error message.
+POST {{host}}/api/customers
+Content-Type: application/json
+
+{
+  "name": "Jane Doe",
+  "email": "invalid-email-format",
+  "street": "456 Maple Rd",
+  "city": "Boston",
+  "zipCode": "02108",
+  "country": "USA",
+  "balanceAmount": 50.00,
+  "balanceCurrency": "USD"
+}
+
+### 4. Create Customer with Negative Balance (Failure)
+# Expected: Returns 400 Bad Request with domain validation error message.
+POST {{host}}/api/customers
+Content-Type: application/json
+
+{
+  "name": "Jane Doe",
+  "email": "jane@example.com",
+  "street": "456 Maple Rd",
+  "city": "Boston",
+  "zipCode": "02108",
+  "country": "USA",
+  "balanceAmount": -20.00,
+  "balanceCurrency": "USD"
+}
+
+### 5. Deposit Money (Success)
+# Expected: Balance increases to 250.00 USD
+POST {{host}}/api/customers/1/deposit
+Content-Type: application/json
+
+{
+  "amount": 100.00,
+  "currency": "USD"
+}
+
+### 6. Deposit Money with Wrong Currency (Failure)
+# Expected: Returns 400 Bad Request with currency mismatch error.
+POST {{host}}/api/customers/1/deposit
+Content-Type: application/json
+
+{
+  "amount": 50.00,
+  "currency": "EUR"
+}
+
+### 7. Withdraw Insufficient Funds (Failure)
+# Expected: Returns 400 Bad Request with operation failed message.
+POST {{host}}/api/customers/1/withdraw
+Content-Type: application/json
+
+{
+  "amount": 1000.00,
+  "currency": "USD"
+}
