@@ -42,6 +42,8 @@ Production-ready .NET backend patterns for modern applications.
 | 34 | [Architecture Tests](./34-architecture-tests) | Automating Clean Architecture boundary enforcement using NetArchTest.Rules |
 | 35 | [REPR Pattern with FastEndpoints](./35-fast-endpoints) | Single-responsibility API slices using FastEndpoints and FluentValidation |
 | 36 | [DDD Value Objects](./36-ddd-value-objects) | Designing immutable Value Objects using C# records and mapping them with EF Core |
+| 37 | [CQRS Read-Write Splitting](./37-cqrs-read-write-splitting) | Separating Commands (EF Core Writes) and Queries (Dapper Reads) using SQLite in-memory |
+
 
 
 

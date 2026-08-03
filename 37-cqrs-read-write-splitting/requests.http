@@ -1,0 +1,84 @@
+@hostname = localhost
+@port = 5037
+@host = http://{{hostname}}:{{port}}
+
+### 1. Get All Products (Initial Empty List)
+# Expected: Returns 200 OK with empty array []
+# Under the Hood: Executed using Dapper Raw SQL Query.
+GET {{host}}/api/products
+Accept: application/json
+
+### 2. Create Product 1
+# Expected: Returns 201 Created and product details.
+# Under the Hood: Executed using EF Core DbContext Write.
+POST {{host}}/api/products
+Content-Type: application/json
+
+{
+  "name": "Gaming Laptop",
+  "price": 1499.99,
+  "stock": 10
+}
+
+### 3. Create Product 2
+# Expected: Returns 201 Created.
+POST {{host}}/api/products
+Content-Type: application/json
+
+{
+  "name": "Wireless Mouse",
+  "price": 29.99,
+  "stock": 50
+}
+
+### 4. Get All Products (After Creation)
+# Expected: Returns list of 2 products.
+# Under the Hood: Executed using Dapper Raw SQL Query.
+GET {{host}}/api/products
+Accept: application/json
+
+### 5. Get Product By ID (Success)
+# Expected: Returns Gaming Laptop (ID 1)
+# Under the Hood: Executed using Dapper Raw SQL Query.
+GET {{host}}/api/products/1
+Accept: application/json
+
+### 6. Get Product By ID (Not Found)
+# Expected: Returns 404 Not Found
+GET {{host}}/api/products/99
+Accept: application/json
+
+### 7. Update Product Price (Command)
+# Expected: Returns 204 No Content.
+# Under the Hood: Executed using EF Core DbContext Write.
+PUT {{host}}/api/products/1/price
+Content-Type: application/json
+
+{
+  "newPrice": 1399.99
+}
+
+### 8. Adjust Product Stock (Command)
+# Expected: Returns 204 No Content.
+# Under the Hood: Executed using EF Core DbContext Write.
+PUT {{host}}/api/products/1/stock
+Content-Type: application/json
+
+{
+  "amount": -3
+}
+
+### 9. Get Product By ID (Verify Price & Stock Changes)
+# Expected: Price should be 1399.99 and Stock should be 7.
+# Under the Hood: Executed using Dapper Raw SQL Query.
+GET {{host}}/api/products/1
+Accept: application/json
+
+### 10. Adjust Product Stock Below Zero (Failure)
+# Expected: Returns 400 Bad Request with "Insufficient stock." error.
+PUT {{host}}/api/products/1/stock
+Content-Type: application/json
+
+{
+  "amount": -10
+}
