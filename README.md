@@ -43,6 +43,8 @@ Production-ready .NET backend patterns for modern applications.
 | 35 | [REPR Pattern with FastEndpoints](./35-fast-endpoints) | Single-responsibility API slices using FastEndpoints and FluentValidation |
 | 36 | [DDD Value Objects](./36-ddd-value-objects) | Designing immutable Value Objects using C# records and mapping them with EF Core |
 | 37 | [CQRS Read-Write Splitting](./37-cqrs-read-write-splitting) | Separating Commands (EF Core Writes) and Queries (Dapper Reads) using SQLite in-memory |
+| 38 | [Strongly-Typed IDs](./38-strongly-typed-ids) | Compile-time key safety using record structs and EF Core value converters |
+
 
 
 

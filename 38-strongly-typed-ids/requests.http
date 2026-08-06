@@ -1,0 +1,36 @@
+@hostname = localhost
+@port = 5038
+@host = http://{{hostname}}:{{port}}
+
+### 1. Seed Database (Creates 1 Customer and 1 Product)
+# Expected: Returns 200 OK with CustomerId and ProductId.
+# Note: Use the returned Guids in the POST request below.
+POST {{host}}/api/orders/seed
+Accept: application/json
+
+### 2. Create a Valid Order
+# Expected: Returns 200 OK with order details.
+# Replace customerId and productId below with the ones returned by the seed endpoint!
+POST {{host}}/api/orders
+Content-Type: application/json
+
+{
+  "customerId": "CUSTOMER_GUID_HERE",
+  "productId": "PRODUCT_GUID_HERE",
+  "quantity": 2
+}
+
+### 3. Get All Orders
+# Expected: Returns list of placed orders.
+GET {{host}}/api/orders
+Accept: application/json
+
+### 4. Create Order with Invalid Customer (Failure)
+POST {{host}}/api/orders
+Content-Type: application/json
+
+{
+  "customerId": "00000000-0000-0000-0000-000000000000",
+  "productId": "PRODUCT_GUID_HERE",
+  "quantity": 1
+}
