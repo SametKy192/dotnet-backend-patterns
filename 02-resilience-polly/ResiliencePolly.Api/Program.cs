@@ -33,6 +33,12 @@ builder.Services.AddHttpClient<WeatherService>()
             // 30sn devre açık kalır, sonra yarı açık duruma geçer
             BreakDuration = TimeSpan.FromSeconds(30)
         });
+
+        // Timeout Policy — isteklerin belirlenen süreyi aşmamasını sağlar
+        pipeline.AddTimeout(new HttpTimeoutStrategyOptions
+        {
+            Timeout = TimeSpan.FromSeconds(2)
+        });
     });
 
 builder.Services.AddEndpointsApiExplorer();
