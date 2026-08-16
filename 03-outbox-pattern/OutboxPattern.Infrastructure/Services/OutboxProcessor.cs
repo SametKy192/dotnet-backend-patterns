@@ -44,14 +44,26 @@ public class OutboxProcessor : BackgroundService
 
         foreach (var message in messages)
         {
-            // Gerçek projede burası message broker'a gönderir
-            _logger.LogInformation(
-                "Outbox mesajı işlendi: {EventType} — {Payload}",
-                message.EventType,
-                message.Payload);
+            try
+            {
+                // Gerçek projede burası message broker'a gönderir
+                _logger.LogInformation(
+                    "Outbox mesajı işleniyor (ID: {MessageId}): {EventType} — {Payload}",
+                    message.Id,
+                    message.EventType,
+                    message.Payload);
 
-            // İşlendi olarak işaretle
-            message.ProcessedAt = DateTime.UtcNow;
+                // İşlendi olarak işaretle
+                message.ProcessedAt = DateTime.UtcNow;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(
+                    ex,
+                    "Outbox mesajı işlenirken hata oluştu (ID: {MessageId}): {EventType}",
+                    message.Id,
+                    message.EventType);
+            }
         }
 
         await dbContext.SaveChangesAsync();
