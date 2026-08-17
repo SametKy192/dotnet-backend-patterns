@@ -30,7 +30,8 @@ public class ProductCacheService
     public async Task<T?> GetOrSetAsync<T>(
         string key,
         Func<Task<T>> factory,
-        TimeSpan? expiration = null)
+        TimeSpan? expiration = null,
+        TimeSpan? slidingExpiration = null)
     {
         var fullKey = KeyPrefix + key;
 
@@ -52,6 +53,11 @@ public class ProductCacheService
             // Belirtilmezse 5 dakika varsayılan
             AbsoluteExpirationRelativeToNow = expiration ?? TimeSpan.FromMinutes(5)
         };
+
+        if (slidingExpiration.HasValue)
+        {
+            options.SlidingExpiration = slidingExpiration.Value;
+        }
 
         await _cache.SetStringAsync(fullKey, JsonConvert.SerializeObject(value), options);
 
