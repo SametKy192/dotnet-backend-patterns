@@ -17,12 +17,31 @@ public class TenantService
 
     /// <summary>
     /// X-Tenant-Id header'ından tenant'ı okur.
-    /// Header yoksa "default" döner.
+    /// Header yoksa query string'den "tenantId" parametresine bakar.
+    /// İkisi de yoksa "default" döner.
     /// </summary>
     public string GetTenantId()
     {
-        return _httpContextAccessor.HttpContext?
-            .Request.Headers["X-Tenant-Id"]
-            .FirstOrDefault() ?? "default";
+        var httpContext = _httpContextAccessor.HttpContext;
+        if (httpContext == null)
+        {
+            return "default";
+        }
+
+        // 1. Header'dan oku
+        if (httpContext.Request.Headers.TryGetValue("X-Tenant-Id", out var headerValue) &&
+            !string.IsNullOrEmpty(headerValue.FirstOrDefault()))
+        {
+            return headerValue.FirstOrDefault()!;
+        }
+
+        // 2. Query string'den oku (fallback)
+        if (httpContext.Request.Query.TryGetValue("tenantId", out var queryValue) &&
+            !string.IsNullOrEmpty(queryValue.FirstOrDefault()))
+        {
+            return queryValue.FirstOrDefault()!;
+        }
+
+        return "default";
     }
 }
