@@ -87,6 +87,9 @@ public class GlobalExceptionHandler : IExceptionHandler
         // Request path ekle
         problemDetails.Instance = context.Request.Path;
 
+        // TraceId/CorrelationId ekle
+        problemDetails.Extensions["traceId"] = context.TraceIdentifier;
+
         context.Response.StatusCode = problemDetails.Status ?? 500;
         context.Response.ContentType = "application/problem+json";
 
