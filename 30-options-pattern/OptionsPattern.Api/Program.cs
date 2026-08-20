@@ -10,6 +10,15 @@ builder.Services.AddControllers();
 builder.Services.AddOptions<SmtpSettings>()
     .Bind(builder.Configuration.GetSection(SmtpSettings.SectionName))
     .ValidateDataAnnotations()
+    .Validate(settings =>
+    {
+        // Custom business validation rule: SSL cannot be enabled on standard unencrypted port 25
+        if (settings.EnableSsl && settings.Port == 25)
+        {
+            return false;
+        }
+        return true;
+    }, "SSL cannot be enabled on standard unencrypted Port 25.")
     .ValidateOnStart();
 
 builder.Services.AddEndpointsApiExplorer();
