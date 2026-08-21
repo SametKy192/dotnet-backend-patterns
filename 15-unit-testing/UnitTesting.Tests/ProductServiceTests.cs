@@ -94,6 +94,33 @@ public class ProductServiceTests
             .WithMessage("*99*");
     }
 
+    [Fact]
+    public async Task GetByIdAsync_WhenProductNotFound_LogsWarning()
+    {
+        // Arrange
+        _repositoryMock.Setup(r => r.GetByIdAsync(99)).ReturnsAsync((Product?)null);
+
+        // Act
+        try
+        {
+            await _sut.GetByIdAsync(99);
+        }
+        catch (KeyNotFoundException)
+        {
+            // Expected exception
+        }
+
+        // Assert — verify that LogWarning was called
+        _loggerMock.Verify(
+            x => x.Log(
+                LogLevel.Warning,
+                It.IsAny<EventId>(),
+                It.Is<It.IsAnyType>((v, t) => v.ToString()!.Contains("Ürün bulunamadı: 99")),
+                It.IsAny<Exception>(),
+                It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
+            Times.Once);
+    }
+
     // ===== CreateAsync =====
 
     [Fact]
