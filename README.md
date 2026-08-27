@@ -44,6 +44,8 @@ Production-ready .NET backend patterns for modern applications.
 | 36 | [DDD Value Objects](./36-ddd-value-objects) | Designing immutable Value Objects using C# records and mapping them with EF Core |
 | 37 | [CQRS Read-Write Splitting](./37-cqrs-read-write-splitting) | Separating Commands (EF Core Writes) and Queries (Dapper Reads) using SQLite in-memory |
 | 38 | [Strongly-Typed IDs](./38-strongly-typed-ids) | Compile-time key safety using record structs and EF Core value converters |
+| 39 | [Decorator Pattern](./39-decorator-pattern) | Layering caching and logging cross-cutting concerns via composable service decorators |
+
 
 
 

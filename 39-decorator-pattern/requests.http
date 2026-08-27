@@ -1,0 +1,33 @@
+@hostname = localhost
+@port = 5039
+@host = http://{{hostname}}:{{port}}
+
+### 1. Get All Products (Cached after first call)
+# Expected: Returns 3 seeded products
+GET {{host}}/api/products
+Accept: application/json
+
+### 2. Get Product by ID (Cached individually)
+# Expected: Returns a single product
+GET {{host}}/api/products/1
+Accept: application/json
+
+### 3. Get Non-existent Product
+# Expected: 404 Not Found
+GET {{host}}/api/products/999
+Accept: application/json
+
+### 4. Create a New Product (Invalidates list cache)
+# Expected: 201 Created
+POST {{host}}/api/products
+Content-Type: application/json
+
+{
+  "name": "USB-C Hub",
+  "price": 49.99,
+  "stock": 75
+}
+
+### 5. Get All Products Again (List cache was invalidated; fetches fresh data)
+GET {{host}}/api/products
+Accept: application/json
