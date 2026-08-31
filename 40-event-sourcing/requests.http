@@ -1,0 +1,53 @@
+@hostname = localhost
+@port = 5040
+@host = http://{{hostname}}:{{port}}
+
+### 1. Open a New Bank Account
+# Expected: 201 Created with accountId (copy the accountId for next requests!)
+POST {{host}}/api/accounts
+Content-Type: application/json
+
+{
+  "ownerName": "Alice Johnson",
+  "initialBalance": 1000.00
+}
+
+### 2. Deposit Money
+# Replace ACCOUNT_ID with the id returned above
+POST {{host}}/api/accounts/ACCOUNT_ID/deposit
+Content-Type: application/json
+
+{
+  "amount": 250.00
+}
+
+### 3. Withdraw Money
+POST {{host}}/api/accounts/ACCOUNT_ID/withdraw
+Content-Type: application/json
+
+{
+  "amount": 100.00
+}
+
+### 4. Try Overdraft (should fail)
+POST {{host}}/api/accounts/ACCOUNT_ID/withdraw
+Content-Type: application/json
+
+{
+  "amount": 99999.00
+}
+
+### 5. Get Account Summary (projected state from events)
+# Expected: Current balance reflecting all operations
+GET {{host}}/api/accounts/ACCOUNT_ID
+
+### 6. Get Raw Event Log for Account
+# Expected: All domain events that led to the current state
+GET {{host}}/api/accounts/ACCOUNT_ID/events
+
+### 7. Close Account
+POST {{host}}/api/accounts/ACCOUNT_ID/close
+
+### 8. View Entire Event Store
+# Expected: All events across all accounts
+GET {{host}}/api/accounts/store/all
