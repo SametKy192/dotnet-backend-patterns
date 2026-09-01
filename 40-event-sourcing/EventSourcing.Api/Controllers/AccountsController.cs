@@ -94,4 +94,9 @@ public class AccountsController : ControllerBase
     /// <summary>Returns all events in the entire event store.</summary>
     [HttpGet("store/all")]
     public IActionResult GetAllEvents() => Ok(_eventStore.GetAll());
+
+    /// <summary>Returns event store statistics.</summary>
+    [HttpGet("store/stats")]
+    public IActionResult GetStats() => Ok(EventStoreStats.GetStats(_eventStore));
 }
+
