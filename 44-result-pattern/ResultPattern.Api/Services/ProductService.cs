@@ -45,7 +45,7 @@ public sealed class ProductService : IProductService
         // Validate
         var validationResult = ValidateProductFields(request.Name, request.Price, request.StockQuantity);
         if (validationResult is not null)
-            return Task.FromResult<Result<ProductResponse>>(validationResult.Value);
+            return Task.FromResult<Result<ProductResponse>>(validationResult);
 
         // Check for duplicate name (case-insensitive)
         if (_store.Values.Any(p => p.Name.Equals(request.Name, StringComparison.OrdinalIgnoreCase)))
@@ -64,7 +64,7 @@ public sealed class ProductService : IProductService
 
         var validationResult = ValidateProductFields(request.Name, request.Price, request.StockQuantity);
         if (validationResult is not null)
-            return Task.FromResult<Result<ProductResponse>>(validationResult.Value);
+            return Task.FromResult<Result<ProductResponse>>(validationResult);
 
         // Duplicate name check — exclude the current product
         if (_store.Values.Any(p => p.Id != id &&
