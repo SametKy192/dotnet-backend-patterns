@@ -49,7 +49,7 @@ Production-ready .NET backend patterns for modern applications.
 | 41 | [Inbox Pattern](./41-inbox-pattern) | Guaranteeing exactly-once processing of incoming messages using an inbox table |
 | 42 | [Integration Testing with Testcontainers](./42-integration-testing-testcontainers) | Spinning up real infrastructure (PostgreSQL, Redis) in Docker for integration tests |
 | 43 | [MediatR Pipeline Behavior](./43-pipeline-behavior) | Layering logging, validation and caching as composable MediatR pipeline behaviors |
-
+| 44 | [Result Pattern](./44-result-pattern) | Functional error handling with Result&lt;T&gt; — eliminating exception-driven control flow |
 
 
 

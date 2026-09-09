@@ -1,0 +1,121 @@
+@baseUrl = https://localhost:7000/api
+
+### ── Create Products ────────────────────────────────────────────────────────
+
+# Create Widget
+POST {{baseUrl}}/products
+Content-Type: application/json
+
+{
+  "name": "Mechanical Keyboard",
+  "description": "TKL, Cherry MX Red switches",
+  "price": 129.99,
+  "stockQuantity": 50
+}
+
+###
+
+# Create second product
+POST {{baseUrl}}/products
+Content-Type: application/json
+
+{
+  "name": "Wireless Mouse",
+  "description": "Ergonomic, 2.4 GHz",
+  "price": 49.99,
+  "stockQuantity": 200
+}
+
+### ── Validation errors ───────────────────────────────────────────────────────
+
+# Missing name → 400 Validation.Name
+POST {{baseUrl}}/products
+Content-Type: application/json
+
+{
+  "name": "",
+  "description": "desc",
+  "price": 10.00,
+  "stockQuantity": 5
+}
+
+###
+
+# Negative price → 400 Validation.Price
+POST {{baseUrl}}/products
+Content-Type: application/json
+
+{
+  "name": "Bad Product",
+  "description": "desc",
+  "price": -1,
+  "stockQuantity": 5
+}
+
+### ── Read ────────────────────────────────────────────────────────────────────
+
+# List all products
+GET {{baseUrl}}/products
+
+###
+
+# Get by ID — replace {id} with actual GUID from Create response
+GET {{baseUrl}}/products/00000000-0000-0000-0000-000000000000
+
+### ── Update ──────────────────────────────────────────────────────────────────
+
+# Full update — replace {id}
+PUT {{baseUrl}}/products/00000000-0000-0000-0000-000000000000
+Content-Type: application/json
+
+{
+  "name": "Mechanical Keyboard v2",
+  "description": "Updated description",
+  "price": 149.99,
+  "stockQuantity": 45
+}
+
+### ── Stock adjustment ────────────────────────────────────────────────────────
+
+# Add stock (positive delta) — replace {id}
+PATCH {{baseUrl}}/products/00000000-0000-0000-0000-000000000000/stock
+Content-Type: application/json
+
+{
+  "quantity": 10
+}
+
+###
+
+# Remove stock (negative delta) — replace {id}
+PATCH {{baseUrl}}/products/00000000-0000-0000-0000-000000000000/stock
+Content-Type: application/json
+
+{
+  "quantity": -5
+}
+
+###
+
+# Insufficient stock → 422 Product.InsufficientStock
+PATCH {{baseUrl}}/products/00000000-0000-0000-0000-000000000000/stock
+Content-Type: application/json
+
+{
+  "quantity": -9999
+}
+
+### ── Not Found ───────────────────────────────────────────────────────────────
+
+# Non-existent product → 404 Product.NotFound
+GET {{baseUrl}}/products/ffffffff-ffff-ffff-ffff-ffffffffffff
+
+### ── Delete ──────────────────────────────────────────────────────────────────
+
+# Delete — replace {id}
+DELETE {{baseUrl}}/products/00000000-0000-0000-0000-000000000000
+
+###
+
+# Delete non-existent → 404
+DELETE {{baseUrl}}/products/ffffffff-ffff-ffff-ffff-ffffffffffff
