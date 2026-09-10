@@ -1,0 +1,4 @@
+﻿<Solution>
+  <Project Path="ChainOfResponsibility.Api\ChainOfResponsibility.Api.csproj" />
+  <Project Path="ChainOfResponsibility.Tests\ChainOfResponsibility.Tests.csproj" />
+</Solution>
