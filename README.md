@@ -50,6 +50,7 @@ Production-ready .NET backend patterns for modern applications.
 | 42 | [Integration Testing with Testcontainers](./42-integration-testing-testcontainers) | Spinning up real infrastructure (PostgreSQL, Redis) in Docker for integration tests |
 | 43 | [MediatR Pipeline Behavior](./43-pipeline-behavior) | Layering logging, validation and caching as composable MediatR pipeline behaviors |
 | 44 | [Result Pattern](./44-result-pattern) | Functional error handling with Result&lt;T&gt; — eliminating exception-driven control flow |
+| 45 | [Chain of Responsibility](./45-chain-of-responsibility) | Passing requests through a configurable handler chain — spam filter, auth, authz, rate limit, logging |
 
 
 

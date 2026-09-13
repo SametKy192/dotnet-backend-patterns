@@ -1,0 +1,103 @@
+@baseUrl = http://localhost:5000
+
+### Submit a valid General ticket (admin key)
+POST {{baseUrl}}/api/tickets
+Content-Type: application/json
+
+{
+  "title": "Cannot connect to database",
+  "description": "Getting timeout errors on production server",
+  "priority": 2,
+  "category": 0,
+  "requestedBy": "dev@example.com",
+  "apiKey": "key-admin-001"
+}
+
+###
+
+### Submit a Technical ticket with user key
+POST {{baseUrl}}/api/tickets
+Content-Type: application/json
+
+{
+  "title": "Build pipeline failing",
+  "description": "CI is broken since last push",
+  "priority": 1,
+  "category": 1,
+  "requestedBy": "ci@example.com",
+  "apiKey": "key-user-002"
+}
+
+###
+
+### Submit a Security ticket with admin key (allowed)
+POST {{baseUrl}}/api/tickets
+Content-Type: application/json
+
+{
+  "title": "Suspicious login activity detected",
+  "description": "Multiple failed login attempts from unknown IP",
+  "priority": 3,
+  "category": 3,
+  "requestedBy": "security@example.com",
+  "apiKey": "key-admin-001"
+}
+
+###
+
+### REJECT — Spam keyword in title
+POST {{baseUrl}}/api/tickets
+Content-Type: application/json
+
+{
+  "title": "You are a winner — claim your prize now",
+  "description": "Click here to get free stuff",
+  "priority": 0,
+  "category": 0,
+  "requestedBy": "spammer@example.com",
+  "apiKey": "key-admin-001"
+}
+
+###
+
+### REJECT — Invalid API key
+POST {{baseUrl}}/api/tickets
+Content-Type: application/json
+
+{
+  "title": "Need help with my account",
+  "description": "I cannot log in",
+  "priority": 1,
+  "category": 0,
+  "requestedBy": "user@example.com",
+  "apiKey": "invalid-key-xyz"
+}
+
+###
+
+### REJECT — Authorization: support key cannot submit Security tickets
+POST {{baseUrl}}/api/tickets
+Content-Type: application/json
+
+{
+  "title": "Potential data breach",
+  "description": "Suspicious query logs found",
+  "priority": 3,
+  "category": 3,
+  "requestedBy": "support@example.com",
+  "apiKey": "key-support-003"
+}
+
+###
+
+### REJECT — Missing API key
+POST {{baseUrl}}/api/tickets
+Content-Type: application/json
+
+{
+  "title": "Help needed",
+  "description": "Something is wrong",
+  "priority": 0,
+  "category": 0,
+  "requestedBy": "anonymous@example.com"
+}
