@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="StrategyPattern.Api\StrategyPattern.Api.csproj" />
+  <Project Path="StrategyPattern.Tests\StrategyPattern.Tests.csproj" />
+</Solution>
