@@ -1,0 +1,136 @@
+@baseUrl = http://localhost:5000
+
+### Quote — Standard shipping (domestic, 3.5 kg, $30 order)
+POST {{baseUrl}}/api/shipping/quote
+Content-Type: application/json
+
+{
+  "weightKg": 3.5,
+  "totalValue": 30.00,
+  "itemCount": 2,
+  "destination": "domestic",
+  "method": 0
+}
+
+###
+
+### Quote — Express shipping (domestic, 2 kg)
+POST {{baseUrl}}/api/shipping/quote
+Content-Type: application/json
+
+{
+  "weightKg": 2.0,
+  "totalValue": 60.00,
+  "itemCount": 1,
+  "destination": "domestic",
+  "method": 1
+}
+
+###
+
+### Quote — Overnight shipping (domestic, 1 kg)
+POST {{baseUrl}}/api/shipping/quote
+Content-Type: application/json
+
+{
+  "weightKg": 1.0,
+  "totalValue": 200.00,
+  "itemCount": 1,
+  "destination": "domestic",
+  "method": 2
+}
+
+###
+
+### Quote — Free shipping (domestic, order >= $50)
+POST {{baseUrl}}/api/shipping/quote
+Content-Type: application/json
+
+{
+  "weightKg": 5.0,
+  "totalValue": 150.00,
+  "itemCount": 8,
+  "destination": "domestic",
+  "method": 3
+}
+
+###
+
+### Quote — Free shipping REJECTED (order < $50)
+POST {{baseUrl}}/api/shipping/quote
+Content-Type: application/json
+
+{
+  "weightKg": 1.0,
+  "totalValue": 25.00,
+  "itemCount": 1,
+  "destination": "domestic",
+  "method": 3
+}
+
+###
+
+### Quote — International shipping (no customs surcharge)
+POST {{baseUrl}}/api/shipping/quote
+Content-Type: application/json
+
+{
+  "weightKg": 2.0,
+  "totalValue": 500.00,
+  "itemCount": 3,
+  "destination": "international",
+  "method": 4
+}
+
+###
+
+### Quote — International shipping (WITH customs surcharge — value > $1000)
+POST {{baseUrl}}/api/shipping/quote
+Content-Type: application/json
+
+{
+  "weightKg": 4.0,
+  "totalValue": 1500.00,
+  "itemCount": 2,
+  "destination": "international",
+  "method": 4
+}
+
+###
+
+### All quotes — compare all five strategies (domestic, $120 order)
+POST {{baseUrl}}/api/shipping/all
+Content-Type: application/json
+
+{
+  "weightKg": 3.5,
+  "totalValue": 120.00,
+  "itemCount": 4,
+  "destination": "domestic"
+}
+
+###
+
+### Optimal — auto-select cheapest (Free wins for $120 order)
+POST {{baseUrl}}/api/shipping/optimal
+Content-Type: application/json
+
+{
+  "weightKg": 3.5,
+  "totalValue": 120.00,
+  "itemCount": 4,
+  "destination": "domestic"
+}
+
+###
+
+### Optimal — auto-select cheapest (Standard wins for $20 order)
+POST {{baseUrl}}/api/shipping/optimal
+Content-Type: application/json
+
+{
+  "weightKg": 1.0,
+  "totalValue": 20.00,
+  "itemCount": 1,
+  "destination": "domestic"
+}
