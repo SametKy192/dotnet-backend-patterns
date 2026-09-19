@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="ObserverPattern.Api\ObserverPattern.Api.csproj" />
+  <Project Path="ObserverPattern.Tests\ObserverPattern.Tests.csproj" />
+</Solution>
