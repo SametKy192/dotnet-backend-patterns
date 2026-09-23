@@ -1,0 +1,142 @@
+### Subscribe EmailAlert observer to AAPL
+POST http://localhost:5000/api/stocks/subscribe
+Content-Type: application/json
+
+{
+  "symbol": "AAPL",
+  "observerType": "EmailAlert"
+}
+
+###
+
+### Subscribe SmsAlert observer to AAPL
+POST http://localhost:5000/api/stocks/subscribe
+Content-Type: application/json
+
+{
+  "symbol": "AAPL",
+  "observerType": "SmsAlert"
+}
+
+###
+
+### Subscribe Dashboard observer to AAPL
+POST http://localhost:5000/api/stocks/subscribe
+Content-Type: application/json
+
+{
+  "symbol": "AAPL",
+  "observerType": "Dashboard"
+}
+
+###
+
+### Subscribe AuditLog observer to AAPL
+POST http://localhost:5000/api/stocks/subscribe
+Content-Type: application/json
+
+{
+  "symbol": "AAPL",
+  "observerType": "AuditLog"
+}
+
+###
+
+### Subscribe EmailAlert to TSLA
+POST http://localhost:5000/api/stocks/subscribe
+Content-Type: application/json
+
+{
+  "symbol": "TSLA",
+  "observerType": "EmailAlert"
+}
+
+###
+
+### Publish a small price change (no email/sms alerts expected)
+POST http://localhost:5000/api/stocks/price
+Content-Type: application/json
+
+{
+  "symbol": "AAPL",
+  "price": 150.00
+}
+
+###
+
+### Publish a 6% price surge (email alert expected, SMS no)
+POST http://localhost:5000/api/stocks/price
+Content-Type: application/json
+
+{
+  "symbol": "AAPL",
+  "price": 159.00
+}
+
+###
+
+### Publish a 12% crash (all alert observers fire — email critical, SMS critical)
+POST http://localhost:5000/api/stocks/price
+Content-Type: application/json
+
+{
+  "symbol": "AAPL",
+  "price": 140.00
+}
+
+###
+
+### Publish a TSLA price update
+POST http://localhost:5000/api/stocks/price
+Content-Type: application/json
+
+{
+  "symbol": "TSLA",
+  "price": 800.00
+}
+
+###
+
+### Get all tracked symbols
+GET http://localhost:5000/api/stocks/symbols
+
+###
+
+### Get price history for AAPL
+GET http://localhost:5000/api/stocks/AAPL/history
+
+###
+
+### Get alerts from EmailAlert observer
+GET http://localhost:5000/api/stocks/alerts/EmailAlert
+
+###
+
+### Get alerts from SmsAlert observer
+GET http://localhost:5000/api/stocks/alerts/SmsAlert
+
+###
+
+### Get alerts from Dashboard observer
+GET http://localhost:5000/api/stocks/alerts/Dashboard
+
+###
+
+### Get alerts from AuditLog observer
+GET http://localhost:5000/api/stocks/alerts/AuditLog
+
+###
+
+### Get all alerts from all observers
+GET http://localhost:5000/api/stocks/alerts
+
+###
+
+### Unsubscribe SmsAlert from AAPL
+DELETE http://localhost:5000/api/stocks/subscribe
+Content-Type: application/json
+
+{
+  "symbol": "AAPL",
+  "observerType": "SmsAlert"
+}
