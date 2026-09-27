@@ -53,6 +53,7 @@ Production-ready .NET backend patterns for modern applications.
 | 45 | [Chain of Responsibility](./45-chain-of-responsibility) | Passing requests through a configurable handler chain — spam filter, auth, authz, rate limit, logging |
 | 46 | [Strategy Pattern](./46-strategy-pattern) | Interchangeable shipping cost algorithms — runtime strategy swap via context, DI-based factory |
 | 47 | [Observer Pattern](./47-observer-pattern) | Decoupled event notifications — stock price publisher pushing to email, SMS, dashboard and audit-log observers |
+| 48 | [Command Pattern](./48-command-pattern) | Encapsulating banking operations as undoable command objects — Deposit, Withdraw, Transfer with full undo/redo stack |
 
 
 

@@ -1,0 +1,94 @@
+### Create account for Alice with initial deposit
+POST http://localhost:5000/api/accounts
+Content-Type: application/json
+
+{
+  "owner": "Alice",
+  "initialDeposit": 1000.00
+}
+
+###
+
+### Create account for Bob (no initial deposit)
+POST http://localhost:5000/api/accounts
+Content-Type: application/json
+
+{
+  "owner": "Bob",
+  "initialDeposit": 0
+}
+
+###
+
+### List all accounts
+GET http://localhost:5000/api/accounts
+
+###
+
+### Get account by ID (replace with actual ID from create response)
+GET http://localhost:5000/api/accounts/00000000-0000-0000-0000-000000000001
+
+###
+
+### Deposit $500 into Alice's account
+POST http://localhost:5000/api/accounts/deposit
+Content-Type: application/json
+
+{
+  "accountId": "ALICE_ACCOUNT_ID",
+  "amount": 500.00
+}
+
+###
+
+### Withdraw $200 from Alice's account
+POST http://localhost:5000/api/accounts/withdraw
+Content-Type: application/json
+
+{
+  "accountId": "ALICE_ACCOUNT_ID",
+  "amount": 200.00
+}
+
+###
+
+### Transfer $300 from Alice to Bob
+POST http://localhost:5000/api/accounts/transfer
+Content-Type: application/json
+
+{
+  "fromAccountId": "ALICE_ACCOUNT_ID",
+  "toAccountId": "BOB_ACCOUNT_ID",
+  "amount": 300.00
+}
+
+###
+
+### Undo the last command (reverses the transfer)
+POST http://localhost:5000/api/accounts/undo
+
+###
+
+### Redo the last undone command (re-applies the transfer)
+POST http://localhost:5000/api/accounts/redo
+
+###
+
+### Undo again — should fail (nothing to undo after redo + new commands cleared stack)
+POST http://localhost:5000/api/accounts/undo
+
+###
+
+### View full command execution history
+GET http://localhost:5000/api/accounts/history
+
+###
+
+### Attempt to withdraw more than balance (expect 400)
+POST http://localhost:5000/api/accounts/withdraw
+Content-Type: application/json
+
+{
+  "accountId": "ALICE_ACCOUNT_ID",
+  "amount": 999999.00
+}
