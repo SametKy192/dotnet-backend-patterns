@@ -19,6 +19,9 @@ public class StockMarket : IStockMarket
 
     public void Subscribe(string symbol, IStockObserver observer)
     {
+        if (string.IsNullOrWhiteSpace(symbol))
+            throw new ArgumentException("Symbol cannot be null or empty.", nameof(symbol));
+
         if (!_subscriptions.TryGetValue(symbol, out var observers))
         {
             observers = [];
@@ -61,6 +64,7 @@ public class StockMarket : IStockMarket
     public IReadOnlyList<StockPrice> GetPriceHistory(string symbol)
         => _history.TryGetValue(symbol.ToUpperInvariant(), out var h) ? h : [];
 
+    /// <summary>Returns all tracked symbols sorted alphabetically.</summary>
     public IReadOnlyList<string> GetTrackedSymbols()
-        => [.. _subscriptions.Keys];
+        => [.. _subscriptions.Keys.Order()];
 }
