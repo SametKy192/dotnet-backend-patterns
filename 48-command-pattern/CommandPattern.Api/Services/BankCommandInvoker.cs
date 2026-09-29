@@ -83,4 +83,22 @@ public class BankCommandInvoker
 
     /// <summary>True when there is at least one command that can be redone.</summary>
     public bool CanRedo => _redoStack.Count > 0;
+
+    /// <summary>Number of commands currently available to undo.</summary>
+    public int UndoDepth => _undoStack.Count;
+
+    /// <summary>Number of commands currently available to redo.</summary>
+    public int RedoDepth => _redoStack.Count;
+
+    /// <summary>
+    /// Clears both the undo and redo stacks and resets the execution history.
+    /// Useful for checkpointing after a successful save or batch commit.
+    /// </summary>
+    public void ClearHistory()
+    {
+        _undoStack.Clear();
+        _redoStack.Clear();
+        _history.Clear();
+        _step = 0;
+    }
 }
