@@ -24,6 +24,11 @@ public class AccountRepository
     public BankAccount? Find(Guid id)
         => _accounts.GetValueOrDefault(id);
 
+    /// <summary>Returns all accounts whose owner name matches (case-insensitive).</summary>
+    public IReadOnlyList<BankAccount> FindByOwner(string owner)
+        => [.. _accounts.Values
+            .Where(a => a.Owner.Equals(owner, StringComparison.OrdinalIgnoreCase))];
+
     public IReadOnlyList<BankAccount> All()
         => [.. _accounts.Values];
 }
