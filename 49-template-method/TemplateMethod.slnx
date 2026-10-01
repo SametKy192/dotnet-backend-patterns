@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="TemplateMethod.Api\TemplateMethod.Api.csproj" />
+  <Project Path="TemplateMethod.Tests\TemplateMethod.Tests.csproj" />
+</Solution>
