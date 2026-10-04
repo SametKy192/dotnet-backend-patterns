@@ -1,0 +1,37 @@
+### List available export formats
+GET http://localhost:5000/api/export
+
+###
+
+### Export as CSV
+GET http://localhost:5000/api/export/csv
+
+###
+
+### Export as JSON
+GET http://localhost:5000/api/export/json
+
+###
+
+### Export as XML
+GET http://localhost:5000/api/export/xml
+
+###
+
+### Export as Markdown table
+GET http://localhost:5000/api/export/markdown
+
+###
+
+### Export using generic route — CSV
+GET http://localhost:5000/api/export/csv
+
+###
+
+### Export using generic route — JSON
+GET http://localhost:5000/api/export/json
+
+###
+
+### Export using generic route — unsupported format (expect 400)
+GET http://localhost:5000/api/export/pdf

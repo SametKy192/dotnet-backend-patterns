@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text;
 using TemplateMethod.Api.Models;
 
@@ -21,7 +22,7 @@ public class MarkdownExporter : DataExporter
     }
 
     protected override void WriteRow(StringBuilder sb, Product p)
-        => sb.AppendLine($"| {p.Id} | {p.Name} | {p.Category} | {p.Price:F2} | {p.Stock} |");
+        => sb.AppendLine($"| {p.Id} | {p.Name} | {p.Category} | {p.Price.ToString("F2", CultureInfo.InvariantCulture)} | {p.Stock} |");
 
     protected override void WriteFooter(StringBuilder sb, int rowCount)
     {

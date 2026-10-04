@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text;
 using TemplateMethod.Api.Models;
 
@@ -27,7 +28,7 @@ public class XmlExporter : DataExporter
         sb.AppendLine($"  <product id=\"{p.Id}\">");
         sb.AppendLine($"    <name>{Escape(p.Name)}</name>");
         sb.AppendLine($"    <category>{Escape(p.Category)}</category>");
-        sb.AppendLine($"    <price>{p.Price:F2}</price>");
+        sb.AppendLine($"    <price>{p.Price.ToString("F2", CultureInfo.InvariantCulture)}</price>");
         sb.AppendLine($"    <stock>{p.Stock}</stock>");
         sb.AppendLine($"  </product>");
     }
