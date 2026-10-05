@@ -1,0 +1,48 @@
+### Create an order
+POST http://localhost:5000/api/orders
+Content-Type: application/json
+
+{
+  "customer": "Alice",
+  "amount": 149.90
+}
+
+###
+
+### List all orders
+GET http://localhost:5000/api/orders
+
+###
+
+### Get order (replace with actual ID)
+GET http://localhost:5000/api/orders/00000000-0000-0000-0000-000000000001
+
+###
+
+### Pay  (Pending -> Paid)
+POST http://localhost:5000/api/orders/00000000-0000-0000-0000-000000000001/pay
+
+###
+
+### Ship  (Paid -> Shipped)
+POST http://localhost:5000/api/orders/00000000-0000-0000-0000-000000000001/ship
+
+###
+
+### Deliver  (Shipped -> Delivered)
+POST http://localhost:5000/api/orders/00000000-0000-0000-0000-000000000001/deliver
+
+###
+
+### Cancel  (Pending -> Cancelled, Paid -> Refunded)
+POST http://localhost:5000/api/orders/00000000-0000-0000-0000-000000000001/cancel
+
+###
+
+### Refund  (Paid/Delivered -> Refunded)
+POST http://localhost:5000/api/orders/00000000-0000-0000-0000-000000000001/refund
+
+###
+
+### Transition history
+GET http://localhost:5000/api/orders/00000000-0000-0000-0000-000000000001/history
