@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="StatePattern.Api\StatePattern.Api.csproj" />
+  <Project Path="StatePattern.Tests\StatePattern.Tests.csproj" />
+</Solution>
