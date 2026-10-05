@@ -414,5 +414,11 @@ FodyWeavers.xsd
 *.cab
 *.msi
 *.msix
-*.msm
 *.msp
+
+# Local environment & secrets
+appsettings.*.local.json
+appsettings.Secrets.json
+*.local.env
+.env.*.local
+docker-compose.override.yml
