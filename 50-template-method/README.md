@@ -1,4 +1,4 @@
-# 49 — Template Method Pattern
+# 50 — Template Method Pattern
 
 Demonstrates the **Template Method** design pattern in ASP.NET Core — defines the skeleton of an algorithm in an abstract base class, deferring specific steps to subclasses without altering the structure.
 

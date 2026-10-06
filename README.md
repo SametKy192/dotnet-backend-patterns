@@ -54,8 +54,8 @@ Production-ready .NET backend patterns for modern applications.
 | 46 | [Strategy Pattern](./46-strategy-pattern) | Interchangeable shipping cost algorithms — runtime strategy swap via context, DI-based factory |
 | 47 | [Observer Pattern](./47-observer-pattern) | Decoupled event notifications — stock price publisher pushing to email, SMS, dashboard and audit-log observers |
 | 48 | [Command Pattern](./48-command-pattern) | Encapsulating banking operations as undoable command objects — Deposit, Withdraw, Transfer with full undo/redo stack |
-| 49 | [Template Method Pattern](./49-template-method) | Algorithmic export pipeline skeleton — CSV, JSON, XML, and Markdown document exporters |
-| 50 | [State Pattern](./49-state-pattern) | Order lifecycle as a state machine — one class per state, illegal transitions rejected with 409 Conflict |
+| 49 | [State Pattern](./49-state-pattern) | Order lifecycle as a state machine — one class per state, illegal transitions rejected with 409 Conflict |
+| 50 | [Template Method Pattern](./50-template-method) | Algorithmic export pipeline skeleton — CSV, JSON, XML, and Markdown document exporters |
 
 
 
