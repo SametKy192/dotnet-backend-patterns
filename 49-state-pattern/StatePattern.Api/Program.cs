@@ -3,6 +3,8 @@ using StatePattern.Api.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+
+// In-memory store holding orders and state transition history for the application lifetime
 builder.Services.AddSingleton<OrderRepository>();
 
 var app = builder.Build();
