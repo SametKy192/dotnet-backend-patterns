@@ -6,4 +6,9 @@ public record Product(
     string  Name,
     string  Category,
     decimal Price,
-    int     Stock);
+    int     Stock)
+{
+    /// <summary>Indicates whether the product currently has available stock.</summary>
+    public bool InStock => Stock > 0;
+}
+
