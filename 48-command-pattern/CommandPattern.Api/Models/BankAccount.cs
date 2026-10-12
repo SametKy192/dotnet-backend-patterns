@@ -21,6 +21,9 @@ public class BankAccount
         Balance += amount;
     }
 
+    /// <summary>Checks whether the account has sufficient funds and is open for withdrawal.</summary>
+    public bool CanDebit(decimal amount) => IsOpen && amount > 0 && Balance >= amount;
+
     /// <summary>Decreases the balance. Throws if insufficient funds or account is closed.</summary>
     public void Debit(decimal amount)
     {
