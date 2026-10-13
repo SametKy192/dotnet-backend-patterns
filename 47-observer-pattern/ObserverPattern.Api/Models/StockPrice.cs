@@ -10,6 +10,8 @@ public record StockPrice(
     public decimal ChangeAmount  => Price - PreviousPrice;
     public decimal ChangePercent => PreviousPrice == 0 ? 0
         : Math.Round((Price - PreviousPrice) / PreviousPrice * 100, 2);
-    public bool IsUp   => Price > PreviousPrice;
-    public bool IsDown => Price < PreviousPrice;
+    public bool IsUp        => Price > PreviousPrice;
+    public bool IsDown      => Price < PreviousPrice;
+    public bool IsUnchanged => Price == PreviousPrice;
 }
+
