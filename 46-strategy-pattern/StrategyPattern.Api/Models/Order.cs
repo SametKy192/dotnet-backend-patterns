@@ -11,4 +11,7 @@ public class Order
 
     public bool IsInternational =>
         string.Equals(Destination, "international", StringComparison.OrdinalIgnoreCase);
+
+    public bool IsDomestic => !IsInternational;
 }
+
