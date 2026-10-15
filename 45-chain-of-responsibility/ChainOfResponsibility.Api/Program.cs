@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 // ── Services ──────────────────────────────────────────────────────────────────
 builder.Services.AddControllers();
 
-// Register each handler as a transient service
+// Register each handler as a transient service so each pipeline resolution can maintain isolated state
 builder.Services.AddTransient<SpamFilterHandler>();
 builder.Services.AddTransient<AuthenticationHandler>();
 builder.Services.AddTransient<AuthorizationHandler>();
