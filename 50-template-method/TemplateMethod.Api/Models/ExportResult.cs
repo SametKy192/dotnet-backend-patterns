@@ -11,5 +11,9 @@ public record ExportResult(
 {
     /// <summary>Size of the exported content in bytes (UTF-8).</summary>
     public int ContentLength => System.Text.Encoding.UTF8.GetByteCount(Content);
+
+    /// <summary>Indicates whether any rows were exported.</summary>
+    public bool HasRows => RowCount > 0;
 }
+
 
