@@ -14,6 +14,10 @@ public class Order
     public OrderStatus Status => _state.Status;
     public IReadOnlyList<OrderHistoryEntry> History => _history;
 
+    /// <summary>Indicates whether the order has reached a terminal state (Delivered, Cancelled, or Refunded).</summary>
+    public bool IsTerminal => Status is OrderStatus.Delivered or OrderStatus.Cancelled or OrderStatus.Refunded;
+
+
     public void Pay()     => _state.Pay(this);
     public void Ship()    => _state.Ship(this);
     public void Deliver() => _state.Deliver(this);
