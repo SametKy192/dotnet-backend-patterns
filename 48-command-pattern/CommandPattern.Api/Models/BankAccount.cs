@@ -13,6 +13,9 @@ public class BankAccount
 
     // ── Primitive operations called by commands ───────────────────────────────
 
+    /// <summary>Checks whether the account is open and can accept credits.</summary>
+    public bool CanCredit(decimal amount) => IsOpen && amount > 0;
+
     /// <summary>Increases the balance. Throws if the account is closed.</summary>
     public void Credit(decimal amount)
     {
