@@ -13,5 +13,9 @@ public class Order
         string.Equals(Destination, "international", StringComparison.OrdinalIgnoreCase);
 
     public bool IsDomestic => !IsInternational;
+
+    /// <summary>Indicates whether the order exceeds standard weight threshold (over 20 kg).</summary>
+    public bool IsHeavyWeight => WeightKg > 20m;
 }
+
 
