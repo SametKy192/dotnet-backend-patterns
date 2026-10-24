@@ -1,4 +1,4 @@
-﻿namespace ChainOfResponsibility.Api.Models;
+namespace ChainOfResponsibility.Api.Models;
 
 public class SupportTicket
 {
@@ -11,7 +11,11 @@ public class SupportTicket
     public string? ApiKey { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public List<string> ProcessingLog { get; set; } = [];
+
+    /// <summary>Indicates whether the ticket requires urgent attention (High or Critical).</summary>
+    public bool IsHighPriority => Priority is TicketPriority.High or TicketPriority.Critical;
 }
+
 
 public enum TicketPriority { Low, Medium, High, Critical }
 public enum TicketCategory { General, Technical, Billing, Security }
