@@ -8,4 +8,7 @@ public class InboxMessage
     public DateTime OccurredOn { get; set; }
     public DateTime? ProcessedAt { get; set; }
     public string? ErrorMessage { get; set; }
+
+    /// <summary>Indicates whether the inbox message has been successfully processed.</summary>
+    public bool IsProcessed => ProcessedAt.HasValue && string.IsNullOrEmpty(ErrorMessage);
 }
