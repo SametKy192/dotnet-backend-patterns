@@ -28,4 +28,9 @@ public class OutboxMessage
     /// İşlenme zamanı — null ise henüz işlenmemiş
     /// </summary>
     public DateTime? ProcessedAt { get; set; }
+
+    /// <summary>
+    /// Mesajın işlenip işlenmediğini döner
+    /// </summary>
+    public bool IsProcessed => ProcessedAt.HasValue;
 }
