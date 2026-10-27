@@ -26,4 +26,8 @@ public sealed record Error(string Code, string Description)
     /// <summary>Creates an Unauthorized error.</summary>
     public static Error Unauthorized(string reason = "Unauthorized access.") =>
         new("Auth.Unauthorized", reason);
+
+    /// <summary>Creates a Forbidden error.</summary>
+    public static Error Forbidden(string reason = "Forbidden access.") =>
+        new("Auth.Forbidden", reason);
 }
