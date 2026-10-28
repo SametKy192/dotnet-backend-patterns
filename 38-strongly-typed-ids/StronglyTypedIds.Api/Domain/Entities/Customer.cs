@@ -5,6 +5,9 @@ public class Customer
     public CustomerId Id { get; private set; }
     public string Name { get; private set; } = string.Empty;
 
+    /// <summary>Indicates whether customer data is valid and initialized.</summary>
+    public bool IsValid => Id.Value != Guid.Empty && !string.IsNullOrWhiteSpace(Name);
+
     private Customer() { } // EF Core
 
     public Customer(CustomerId id, string name)
