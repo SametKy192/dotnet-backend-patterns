@@ -6,6 +6,9 @@ public class Product
     public string Name { get; private set; } = string.Empty;
     public decimal Price { get; private set; }
 
+    /// <summary>Indicates whether the product is free of charge.</summary>
+    public bool IsFree => Price == 0m;
+
     private Product() { } // EF Core
 
     public Product(ProductId id, string name, decimal price)
