@@ -5,6 +5,9 @@ public record Money
     public decimal Amount { get; }
     public string Currency { get; }
 
+    /// <summary>Indicates whether the amount is zero.</summary>
+    public bool IsZero => Amount == 0m;
+
     public Money(decimal amount, string currency)
     {
         if (amount < 0)
