@@ -10,6 +10,9 @@ public record Email
 
     public string Value { get; }
 
+    /// <summary>Gets the domain part of the email address.</summary>
+    public string Domain => Value.Split('@')[1];
+
     public Email(string value)
     {
         if (string.IsNullOrWhiteSpace(value))
